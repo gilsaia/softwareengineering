@@ -24,14 +24,7 @@ package main
 import (
 	"context"
 	"log"
-	"net"
-
-	"google.golang.org/grpc"
 	pb "software/simple_test/pb_gen"
-)
-
-const (
-	port = ":50051"
 )
 
 // server is used to implement helloworld.GreeterServer.
@@ -45,16 +38,4 @@ func newEchoServer() pb.YourServiceServer {
 func (s *echoServer) Echo(ctx context.Context, in *pb.StringMessage) (*pb.StringMessage, error) {
 	log.Printf("Received: %v", in.GetValue())
 	return &pb.StringMessage{Value: "Hello " + in.GetValue()}, nil
-}
-
-func main() {
-	lis, err := net.Listen("tcp", port)
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	s := grpc.NewServer()
-	pb.RegisterYourServiceServer(s, &echoServer{})
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
-	}
 }

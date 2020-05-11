@@ -7,7 +7,6 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"google.golang.org/grpc"
 
 	"software/simple_test/pb_gen"
 )
