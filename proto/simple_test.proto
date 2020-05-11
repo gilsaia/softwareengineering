@@ -4,11 +4,14 @@ package simple_test;
 option go_package = "software/simple_test/pb_gen";
 
 import "google/api/annotations.proto";
-
 message StringMessage {
   string value = 1;
 }
 
 service YourService {
-  rpc Echo(StringMessage) returns (StringMessage) {}
+  rpc Echo(StringMessage) returns (StringMessage) {
+    option(google.api.http) = {
+        get: "/v1/example/a_bit_of_everything/"
+    };
+  }
 }
