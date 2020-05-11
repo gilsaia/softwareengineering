@@ -10,8 +10,9 @@ message StringMessage {
 
 service YourService {
   rpc Echo(StringMessage) returns (StringMessage) {
-    option(google.api.http) = {
-        get: "/v1/example/a_bit_of_everything/"
-    };
+    option (google.api.http) = {
+			post: "/v1/example/a_bit_of_everything"
+			body: "*"
+		};
   }
 }
