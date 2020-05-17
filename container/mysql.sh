@@ -1,1 +1,2 @@
-docker run -dp 3306:3306 --network backend --network-alias mysql -v vehicle-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=vehicle_management -e MYSQL_DATABASE=vehicle_management mysql:8
+docker rm -f mysql
+docker run -dp 3306:3306 --network project --network-alias mysql -v vehicle-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=vehicle_management -e MYSQL_DATABASE=vehicle_management --name mysql mysql:8
