@@ -1,4 +1,4 @@
-package car_port
+package main
 
 import (
 	"context"
@@ -16,7 +16,7 @@ func run() error {
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
-	mux := runtime.NewServeMux()
+	mux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{OrigName: true, EmitDefaults: true}))
 	err := pb_gen.RegisterCarPortServiceHandlerServer(ctx, mux, newCarPortServer())
 	if err != nil {
 		return err

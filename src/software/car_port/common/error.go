@@ -1,20 +1,20 @@
 package common
 
 type BgErr struct {
-	errNo  int32
-	errMsg string
+	ErrNo  int32
+	ErrMsg string
 }
 
 func (e BgErr) Error() string {
-	return e.errMsg
+	return e.ErrMsg
 }
 
 func (e BgErr) Is(err BgErr) bool {
-	return e.errNo == err.errNo
+	return e.ErrNo == err.ErrNo
 }
 
 func (e BgErr) ErrNoMsg() (int32, string) {
-	return e.errNo, e.errMsg
+	return e.ErrNo, e.ErrMsg
 }
 
 var (
