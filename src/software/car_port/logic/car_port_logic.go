@@ -86,7 +86,7 @@ func (logic CarPortLogic) MGetCarPort(count int32, offset int32) (map[int64]*pb_
 	defer db.Close()
 	carports, hasMore, nextOffset, err := model.MGetCarPort(db, offset, count)
 	if err != nil {
-		return nil, false, 0, common.DbErr
+		return nil, false, 0, common.CustomErr(common.DbErr, err)
 	}
 	carPortMap := map[int64]*pb_gen.CarPort{}
 	for _, value := range carports {

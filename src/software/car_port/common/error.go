@@ -22,3 +22,7 @@ var (
 	ParamErr = BgErr{40001, "Param Error!"}
 	DbErr    = BgErr{50001, "Db Error!"}
 )
+
+func CustomErr(err BgErr, custom error) BgErr {
+	return BgErr{ErrNo: err.ErrNo, ErrMsg: err.ErrMsg + custom.Error()}
+}
