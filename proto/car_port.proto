@@ -1,0 +1,80 @@
+syntax = "proto3";
+package simple_test;
+
+option go_package = "software/car_port/pb_gen";
+
+import "google/api/annotations.proto";
+
+message CarPort{
+    int64 id = 1;
+    int32 state = 2;
+    int32 draw_node = 3;
+}
+
+message ReqAddCarPort{
+    CarPort port = 1;
+}
+
+message RespAddCarPort{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqUpdateCarPort{
+    CarPort port = 1;
+}
+
+message RespUpdateCarPort{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqGetCarPort{
+    int64 car_port_id = 1;
+}
+
+message RespGetCarPort{
+    int32 err_no = 1;
+    string err_tips = 2;
+    CarPort port = 3;
+}
+
+message ReqMGetCarPort{
+    repeated int64 car_port_id = 1;
+    int32 count = 2;
+    int32 offset = 3;
+}
+
+message RespMGetCarPort{
+    int32 err_no = 1;
+    string err_tips = 2;
+    map<int64,CarPort> ports = 3;
+    int32 next_offset = 4;
+    bool has_more = 5;
+}
+
+service CarPortService {
+    rpc AddCarPort(ReqAddCarPort) returns (RespAddCarPort){
+        option(google.api.http) = {
+            post:"/car/AddCarPort"
+            body:"*"
+        };
+    }
+    rpc UpdateCarPort(ReqUpdateCarPort) returns (RespUpdateCarPort){
+        option(google.api.http) = {
+            post:"/car/UpdateCarPort"
+            body:"*"
+        };
+    }
+    rpc GetCarPort(ReqGetCarPort) returns (RespGetCarPort){
+        option(google.api.http) = {
+            get:"/car/GetCarPort"
+        };
+    }
+    rpc MGetCarPort(ReqMGetCarPort) returns(RespMGetCarPort){
+        option(google.api.http) = {
+            post:"/car/MGetCarPort"
+            body:"*"
+        };
+    }
+}
