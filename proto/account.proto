@@ -6,7 +6,7 @@ option go_package = "software/account/pb_gen";
 import "google/api/annotations.proto";
 
 message ReqRegister{
-    string account = 1;
+    string cellphone = 1;
     string password = 2;
     string nickname = 3;
 }
@@ -17,8 +17,18 @@ message RespRegister{
 }
 
 message ReqLogin{
-    string account = 1;
+    string cellphone = 1;
     string password = 2;
+}
+
+message ReqVerify{
+    string cellphone = 1;
+}
+
+message RespVerify{
+    int32 err_no = 1;
+    string err_tips = 2;
+    string bind_code = 3;
 }
 
 message RespLogin{
@@ -31,6 +41,12 @@ service AccountService{
     rpc Register(ReqRegister) returns (RespRegister){
         option(google.api.http) = {
             post:"/account/Register"
+            body:"*"
+        };
+    }
+    rpc Verify(ReqVerify) returns(RespVerify){
+        option(google.api.http) = {
+            post:"/account/Verify"
             body:"*"
         };
     }
