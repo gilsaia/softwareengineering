@@ -5,3 +5,6 @@ protoc -I. --grpc-gateway_out=logtostderr=true,paths=source_relative:../src/soft
 
 protoc --go_out=plugins=grpc:../src/ car_port.proto
 protoc -I. --grpc-gateway_out=logtostderr=true,paths=source_relative:../src/software/car_port/pb_gen car_port.proto
+
+protoc --go_out=plugins=grpc:../src/ account.proto
+protoc -I. --grpc-gateway_out=logtostderr=true,paths=source_relative:../src/software/account/pb_gen account.proto

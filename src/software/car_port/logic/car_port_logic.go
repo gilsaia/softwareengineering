@@ -23,7 +23,6 @@ func (logic CarPortLogic) CreateCarPort(port *pb_gen.CarPort) common.BgErr {
 	if err != nil {
 		return common.DbErr
 	}
-	defer db.Close()
 	carPort := model.CarPort{
 		Id:       port.Id,
 		State:    port.State,
@@ -44,7 +43,6 @@ func (logic CarPortLogic) UpdateCarPort(port *pb_gen.CarPort) common.BgErr {
 	if err != nil {
 		return common.DbErr
 	}
-	defer db.Close()
 	carPort := model.CarPort{
 		Id:       port.Id,
 		State:    port.State,
@@ -65,7 +63,6 @@ func (logic CarPortLogic) GetCarPort(portId int64) (*pb_gen.CarPort, common.BgEr
 	if err != nil {
 		return nil, common.DbErr
 	}
-	defer db.Close()
 	carPort, err := model.GetCarPort(db, portId)
 	if err != nil {
 		return nil, common.DbErr
@@ -83,7 +80,6 @@ func (logic CarPortLogic) MGetCarPort(count int32, offset int32) (map[int64]*pb_
 	if err != nil {
 		return nil, false, 0, common.DbErr
 	}
-	defer db.Close()
 	carports, hasMore, nextOffset, err := model.MGetCarPort(db, offset, count)
 	if err != nil {
 		return nil, false, 0, common.CustomErr(common.DbErr, err)

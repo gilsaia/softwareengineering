@@ -19,6 +19,7 @@ message ReqRegister{
     string cellphone = 1;
     string password = 2;
     string nickname = 3;
+    string bind_code = 4;
 }
 
 message RespRegister{
@@ -38,7 +39,6 @@ message ReqVerify{
 message RespVerify{
     int32 err_no = 1;
     string err_tips = 2;
-    string bind_code = 3;
 }
 
 message RespLogin{
