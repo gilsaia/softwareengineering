@@ -25,7 +25,7 @@ func CreateUser(db *gorm.DB, user User) error {
 }
 
 func UpdateUser(db *gorm.DB, cellphone string, user User) error {
-	db = db.Where("cellphone = ?", cellphone).Update(&user)
+	db = db.Where("cellphone = ?", cellphone).Save(&user)
 	return db.Error
 }
 
