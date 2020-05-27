@@ -27,11 +27,6 @@ message RespRegister{
     string err_tips = 2;
 }
 
-message ReqLogin{
-    string cellphone = 1;
-    string password = 2;
-}
-
 message ReqVerify{
     string cellphone = 1;
 }
@@ -39,6 +34,11 @@ message ReqVerify{
 message RespVerify{
     int32 err_no = 1;
     string err_tips = 2;
+}
+
+message ReqLogin{
+    string cellphone = 1;
+    string password = 2;
 }
 
 message RespLogin{

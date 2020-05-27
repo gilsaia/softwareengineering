@@ -29,7 +29,7 @@ func (logic AccountLogic) BackendAuth(keyId string, keySecret string) common.BgE
 
 func (logic AccountLogic) Verify(cellphone string) common.BgErr {
 	ran := rand.New(rand.NewSource(int64(time.Now().Nanosecond())))
-	bindCode := fmt.Sprintf("%06v", ran.Int31n(64))
+	bindCode := fmt.Sprintf("%06v", ran.Int31n(1000000))
 	user := model.User{
 		Id:        common.GenId(),
 		Cellphone: cellphone,
