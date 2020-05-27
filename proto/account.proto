@@ -1,0 +1,75 @@
+syntax = "proto3";
+package account;
+
+option go_package = "software/account/pb_gen";
+
+import "google/api/annotations.proto";
+
+message ReqBackendAuth{
+    string KeyId = 1;
+    string KeySecret = 2;
+}
+
+message RespBackendAuth{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqRegister{
+    string cellphone = 1;
+    string password = 2;
+    string nickname = 3;
+}
+
+message RespRegister{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqLogin{
+    string cellphone = 1;
+    string password = 2;
+}
+
+message ReqVerify{
+    string cellphone = 1;
+}
+
+message RespVerify{
+    int32 err_no = 1;
+    string err_tips = 2;
+    string bind_code = 3;
+}
+
+message RespLogin{
+    int32 err_no = 1;
+    string err_tips = 2;
+    string token = 3;
+}
+
+service AccountService{
+    rpc BackendAuth(ReqBackendAuth) returns (RespBackendAuth){
+        option(google.api.http) = {
+            post:"/account/BackendAuth"
+            body:"*"
+        };
+    }
+    rpc Register(ReqRegister) returns (RespRegister){
+        option(google.api.http) = {
+            post:"/account/Register"
+            body:"*"
+        };
+    }
+    rpc Verify(ReqVerify) returns(RespVerify){
+        option(google.api.http) = {
+            post:"/account/Verify"
+            body:"*"
+        };
+    }
+    rpc Login(ReqLogin) returns (RespLogin){
+        option(google.api.http) = {
+            post:"/account/Login"
+            body:"*"
+        };
+    }
+}
