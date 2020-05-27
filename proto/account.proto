@@ -6,8 +6,8 @@ option go_package = "software/account/pb_gen";
 import "google/api/annotations.proto";
 
 message ReqBackendAuth{
-    string KeyId = 1;
-    string KeySecret = 2;
+    string key_id = 1;
+    string key_secret = 2;
 }
 
 message RespBackendAuth{

@@ -31,6 +31,6 @@ func UpdateUser(db *gorm.DB, cellphone string, user User) error {
 
 func GetUser(db *gorm.DB, cellphone string) (User, error) {
 	user := User{}
-	db = db.Where("cellphone = ?", cellphone).First(&user)
+	db = db.Table("user").Where("cellphone = ?", cellphone).First(&user)
 	return user, db.Error
 }
