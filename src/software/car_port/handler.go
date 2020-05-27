@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"software/car_port/common"
 	"software/car_port/logic"
 	"software/car_port/pb_gen"
+	"software/common"
 )
 
 type carPortServer struct {

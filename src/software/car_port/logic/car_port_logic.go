@@ -2,9 +2,9 @@ package logic
 
 import (
 	"context"
-	"software/car_port/common"
 	"software/car_port/model"
 	"software/car_port/pb_gen"
+	"software/common"
 )
 
 type CarPortLogic struct {
