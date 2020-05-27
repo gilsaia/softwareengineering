@@ -16,6 +16,6 @@ func GetToken(userId int64) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, claims)
-	ss, err := token.SignedString(tokenKey)
+	ss, err := token.SignedString([]byte(tokenKey))
 	return ss, err
 }
