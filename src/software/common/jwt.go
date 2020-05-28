@@ -6,6 +6,7 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"time"
 )
 
 type SelfClaims struct {
@@ -17,7 +18,7 @@ func GetToken(userId int64) (string, error) {
 	claims := SelfClaims{
 		userId,
 		jwt.StandardClaims{
-			ExpiresAt: 7200,
+			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
 			Issuer:    "VehicleManager",
 		},
 	}
@@ -27,12 +28,21 @@ func GetToken(userId int64) (string, error) {
 }
 
 func AuthToken(ctx context.Context) (context.Context, error) {
-	token, err := grpc_auth.AuthFromMD(ctx, "bearer")
+	tokenStr, err := grpc_auth.AuthFromMD(ctx, "bearer")
 	if err != nil {
 		return nil, err
 	}
-	if token != "abc" {
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return []byte(tokenKey), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	if !token.Valid {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid token:%s", token)
+	}
+	if claims, ok := token.Claims.(*SelfClaims); ok {
+		ctx = context.WithValue(ctx, "userId", claims.UserId)
 	}
 	return ctx, nil
 }
