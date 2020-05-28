@@ -16,7 +16,7 @@ func run() error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	lis, err := net.Listen("tcp", "30010")
+	lis, err := net.Listen("tcp", ":30010")
 	if err != nil {
 		return err
 	}
