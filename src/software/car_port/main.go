@@ -34,7 +34,7 @@ func run() error {
 	mux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{OrigName: true, EmitDefaults: true}))
 
 	carportEndpoint := flag.String("car_port_endpoint", "localhost:30010", "endpoint of car_port")
-	var opt []grpc.DialOption
+	opt := []grpc.DialOption{grpc.WithInsecure()}
 	err = pb_gen.RegisterCarPortServiceHandlerFromEndpoint(ctx, mux, *carportEndpoint, opt)
 	if err != nil {
 		return err
