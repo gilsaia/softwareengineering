@@ -51,7 +51,7 @@ func (logic CarPortLogic) UpdateCarPort(port *pb_gen.CarPort) common.BgErr {
 		State:    port.State,
 		DrawNode: port.DrawNode,
 	}
-	err = model.UpdateCarPort(db, carPort.Id, carPort)
+	err = model.UpdateCarPort(db, carPort)
 	if err != nil {
 		return common.DbErr
 	}

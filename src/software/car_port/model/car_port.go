@@ -23,8 +23,8 @@ func CreateCarPort(db *gorm.DB, port CarPort) error {
 	return db.Error
 }
 
-func UpdateCarPort(db *gorm.DB, portId int64, port CarPort) error {
-	db = db.Where("id = ?", portId).Save(&port)
+func UpdateCarPort(db *gorm.DB, port CarPort) error {
+	db = db.Model(&port).Updates(port)
 	return db.Error
 }
 
