@@ -5,10 +5,24 @@ option go_package = "software/car_port/pb_gen";
 
 import "google/api/annotations.proto";
 
+enum UserStatus{
+    User_Unknown = 0;
+    User_Unverified = 1;
+    User_Verified = 2;
+}
+
 message CarPort{
     int64 id = 1;
     int32 state = 2;
     int32 draw_node = 3;
+}
+
+message User{
+    int64 id = 1;
+    int64 cellphone = 2;
+    string nick_name = 3;
+    string bind_code = 4;
+    UserStatus status = 5;
 }
 
 message ReqAddCarPort{
@@ -52,6 +66,39 @@ message RespMGetCarPort{
     bool has_more = 5;
 }
 
+message ReqUpdateUser{
+    User user = 1;
+    string password = 2;
+}
+
+message RespUpdateUser{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqGetUser{
+    int64 id = 1;
+}
+
+message RespGetUser{
+    int32 err_no = 1;
+    string err_tips = 2;
+    User user = 3;
+}
+
+message ReqMGetUser{
+    int32 count = 1;
+    int32 offset = 2;
+}
+
+message RespMGetUser{
+    int32 err_no = 1;
+    string err_tips = 2;
+    map<int64,User> users = 3;
+    int32 next_offset = 4;
+    bool has_more = 5;
+}
+
 service CarPortService {
     rpc AddCarPort(ReqAddCarPort) returns (RespAddCarPort){
         option(google.api.http) = {
@@ -73,6 +120,23 @@ service CarPortService {
     rpc MGetCarPort(ReqMGetCarPort) returns(RespMGetCarPort){
         option(google.api.http) = {
             post:"/car/MGetCarPort"
+            body:"*"
+        };
+    }
+    rpc UpdateUser(ReqUpdateUser) returns (RespUpdateUser){
+        option(google.api.http) = {
+            post:"/user/UpdateUser"
+            body:"*"
+        };
+    }
+    rpc GetUser(ReqGetUser) returns (RespGetUser){
+        option(google.api.http) = {
+            get:"/user/GetUser"
+        };
+    }
+    rpc MGetUser(ReqMGetUser) returns (RespMGetUser){
+        option(google.api.http) = {
+            post:"/user/MGetUser"
             body:"*"
         };
     }
