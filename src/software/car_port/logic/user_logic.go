@@ -62,7 +62,7 @@ func (logic UserLogic) GetUser(userId int64) (*pb_gen.User, common.BgErr) {
 	return packUser(user), common.Success
 }
 
-func (logic UserLogic) MGetUser(count int32, offset int32) (map[int64]*pb_gen.User, bool, int32, common.BgErr) {
+func (logic UserLogic) MGetUser(count int32, offset int32) ([]*pb_gen.User, bool, int32, common.BgErr) {
 	db, err := model.NewDbConnection()
 	if err != nil {
 		return nil, false, 0, common.CustomErr(common.DbErr, err)
@@ -71,11 +71,11 @@ func (logic UserLogic) MGetUser(count int32, offset int32) (map[int64]*pb_gen.Us
 	if err != nil {
 		return nil, false, 0, common.CustomErr(common.DbErr, err)
 	}
-	userMap := map[int64]*pb_gen.User{}
+	var userList []*pb_gen.User
 	for _, value := range users {
-		userMap[value.Id] = packUser(value)
+		userList = append(userList, packUser(value))
 	}
-	return userMap, hasMore, nextOffset, common.Success
+	return userList, hasMore, nextOffset, common.Success
 }
 
 func packUser(user model.User) *pb_gen.User {

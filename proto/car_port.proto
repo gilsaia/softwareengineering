@@ -61,7 +61,7 @@ message ReqMGetCarPort{
 message RespMGetCarPort{
     int32 err_no = 1;
     string err_tips = 2;
-    map<int64,CarPort> ports = 3;
+    repeated CarPort ports = 3;
     int32 next_offset = 4;
     bool has_more = 5;
 }
@@ -94,7 +94,7 @@ message ReqMGetUser{
 message RespMGetUser{
     int32 err_no = 1;
     string err_tips = 2;
-    map<int64,User> users = 3;
+    repeated User users = 3;
     int32 next_offset = 4;
     bool has_more = 5;
 }
