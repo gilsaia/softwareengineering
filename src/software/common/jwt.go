@@ -44,9 +44,10 @@ func AuthToken(ctx context.Context) (context.Context, error) {
 	if !token.Valid {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid token:%s", token)
 	}
-	if claims, ok := token.Claims.(*SelfClaims); ok {
-		ctx = context.WithValue(ctx, "userId", claims.UserId)
-		ctx = context.WithValue(ctx, "permission", claims.Permission)
+	if _, ok := token.Claims.(*SelfClaims); ok {
+		return nil, BgErr{ErrNo: 10002, ErrMsg: "??"}
+		//ctx = context.WithValue(ctx, "userId", claims.UserId)
+		//ctx = context.WithValue(ctx, "permission", claims.Permission)
 	}
 	return ctx, nil
 }

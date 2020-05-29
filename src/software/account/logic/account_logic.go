@@ -93,10 +93,9 @@ func (logic AccountLogic) Login(cellphone string, password string) (string, comm
 	if err != nil {
 		return "", common.UserErr
 	}
-	return "", common.BgErr{ErrNo: 40001, ErrMsg: fmt.Sprintf("%d", user.Permission)}
-	//token, err := common.GetToken(user.Id, user.Permission)
-	//if err != nil {
-	//	return "", common.CustomErr(common.TokenErr, err)
-	//}
-	//return token, common.Success
+	token, err := common.GetToken(user.Id, user.Permission)
+	if err != nil {
+		return "", common.CustomErr(common.TokenErr, err)
+	}
+	return token, common.Success
 }
