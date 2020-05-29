@@ -22,6 +22,7 @@ func GetToken(userId int64, permission int) (string, error) {
 		permission,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
+			NotBefore: time.Now().Unix(),
 			Issuer:    "VehicleManager",
 		},
 	}
@@ -44,10 +45,10 @@ func AuthToken(ctx context.Context) (context.Context, error) {
 	if !token.Valid {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid token:%s", token)
 	}
-	if _, ok := token.Claims.(*SelfClaims); ok {
-		return nil, BgErr{ErrNo: 10002, ErrMsg: "??"}
-		//ctx = context.WithValue(ctx, "userId", claims.UserId)
-		//ctx = context.WithValue(ctx, "permission", claims.Permission)
+	if claims, ok := token.Claims.(SelfClaims); ok {
+		ctx = context.WithValue(ctx, "userId", claims.UserId)
+		ctx = context.WithValue(ctx, "permission", claims.Permission)
+		return nil, BgErr{ErrNo: 40003, ErrMsg: fmt.Sprintf("%t %d", ok, claims.Permission)}
 	}
 	return ctx, nil
 }
