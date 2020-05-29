@@ -36,7 +36,7 @@ func AuthToken(ctx context.Context) (context.Context, error) {
 	if err != nil {
 		return nil, err
 	}
-	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenStr, &SelfClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(tokenKey), nil
 	})
 	if err != nil {
