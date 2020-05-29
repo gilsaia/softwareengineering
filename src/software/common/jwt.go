@@ -55,5 +55,6 @@ func AuthPermission(ctx context.Context, requiredPermission int) BgErr {
 	if permission >= requiredPermission {
 		return Success
 	}
-	return PermissionErr
+	return BgErr{ErrNo: 40002,
+		ErrMsg: string(permission)}
 }
