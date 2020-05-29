@@ -36,7 +36,7 @@ func MGetUser(db *gorm.DB, offset int32, count int32) ([]User, bool, int32, erro
 	var users []User
 	var tableCount, nextOffset int32
 	hasMore := false
-	db = db.Table("user").Offset(offset).Limit(count).Find(&users)
+	db = db.Table("user").Limit(count).Offset(offset).Find(&users)
 	if db.Error != nil {
 		return nil, false, 0, db.Error
 	}
