@@ -51,8 +51,8 @@ func AuthToken(ctx context.Context) (context.Context, error) {
 }
 
 func AuthPermission(ctx context.Context, requiredPermission int) BgErr {
-	permission, exist := ctx.Value("permission").(int)
-	if exist && permission >= requiredPermission {
+	permission, _ := ctx.Value("permission").(int)
+	if permission >= requiredPermission {
 		return Success
 	}
 	return PermissionErr

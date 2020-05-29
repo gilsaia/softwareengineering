@@ -11,8 +11,8 @@ type CarPortLogic struct {
 	ctx context.Context
 }
 
-func NewCarPortLogic(ctx context.Context, permission int) (*CarPortLogic, common.BgErr) {
-	if err := common.AuthPermission(ctx, permission); !err.Is(common.Success) {
+func NewCarPortLogic(ctx context.Context) (*CarPortLogic, common.BgErr) {
+	if err := common.AuthPermission(ctx, common.PermissionAdmin); !err.Is(common.Success) {
 		return nil, err
 	}
 	return &CarPortLogic{ctx: ctx}, common.Success

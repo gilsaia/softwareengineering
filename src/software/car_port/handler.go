@@ -16,7 +16,7 @@ func newCarPortServer() pb_gen.CarPortServiceServer {
 
 func (s *carPortServer) AddCarPort(ctx context.Context, req *pb_gen.ReqAddCarPort) (*pb_gen.RespAddCarPort, error) {
 	resp := &pb_gen.RespAddCarPort{}
-	carPortLogic, logicErr := logic.NewCarPortLogic(ctx, common.PermissionAdmin)
+	carPortLogic, logicErr := logic.NewCarPortLogic(ctx)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
@@ -32,7 +32,7 @@ func (s *carPortServer) AddCarPort(ctx context.Context, req *pb_gen.ReqAddCarPor
 
 func (s *carPortServer) UpdateCarPort(ctx context.Context, req *pb_gen.ReqUpdateCarPort) (*pb_gen.RespUpdateCarPort, error) {
 	resp := &pb_gen.RespUpdateCarPort{}
-	carPortLogic, logicErr := logic.NewCarPortLogic(ctx, common.PermissionAdmin)
+	carPortLogic, logicErr := logic.NewCarPortLogic(ctx)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
@@ -48,7 +48,7 @@ func (s *carPortServer) UpdateCarPort(ctx context.Context, req *pb_gen.ReqUpdate
 
 func (s *carPortServer) GetCarPort(ctx context.Context, req *pb_gen.ReqGetCarPort) (*pb_gen.RespGetCarPort, error) {
 	resp := &pb_gen.RespGetCarPort{}
-	carPortLogic, logicErr := logic.NewCarPortLogic(ctx, common.PermissionAdmin)
+	carPortLogic, logicErr := logic.NewCarPortLogic(ctx)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
@@ -65,7 +65,7 @@ func (s *carPortServer) GetCarPort(ctx context.Context, req *pb_gen.ReqGetCarPor
 
 func (s *carPortServer) MGetCarPort(ctx context.Context, req *pb_gen.ReqMGetCarPort) (*pb_gen.RespMGetCarPort, error) {
 	resp := &pb_gen.RespMGetCarPort{}
-	carPortLogic, logicErr := logic.NewCarPortLogic(ctx, common.PermissionAdmin)
+	carPortLogic, logicErr := logic.NewCarPortLogic(ctx)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
