@@ -42,7 +42,7 @@ func MGetCarPort(db *gorm.DB, offset int32, count int32) ([]CarPort, bool, int32
 	if db.Error != nil {
 		return nil, false, 0, db.Error
 	}
-	db = db.Table("car_port").Count(&tableCount)
+	db = db.Table("car_port").Offset(-1).Count(&tableCount)
 	if offset+count < tableCount {
 		hasMore = true
 		nextOffset = offset + count
