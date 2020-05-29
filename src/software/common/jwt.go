@@ -2,6 +2,7 @@ package common
 
 import (
 	"context"
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"google.golang.org/grpc/codes"
@@ -51,10 +52,10 @@ func AuthToken(ctx context.Context) (context.Context, error) {
 }
 
 func AuthPermission(ctx context.Context, requiredPermission int) BgErr {
-	permission, _ := ctx.Value("permission").(int)
+	permission, exist := ctx.Value("permission").(int)
 	if permission >= requiredPermission {
 		return Success
 	}
 	return BgErr{ErrNo: 40002,
-		ErrMsg: string(permission)}
+		ErrMsg: fmt.Sprintf("%t %d %d", exist, permission, requiredPermission)}
 }
