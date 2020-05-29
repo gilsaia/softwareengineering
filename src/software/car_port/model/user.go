@@ -21,8 +21,8 @@ func (User) TableName() string {
 	return "user"
 }
 
-func UpdateUser(db *gorm.DB, userId int64, user User) error {
-	db = db.Where("id = ?", userId).Save(&user)
+func UpdateUser(db *gorm.DB, user User) error {
+	db = db.Model(&user).Updates(user)
 	return db.Error
 }
 

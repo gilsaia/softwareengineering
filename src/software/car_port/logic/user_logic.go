@@ -40,7 +40,7 @@ func (logic UserLogic) UpdateUser(user *pb_gen.User, password string) common.BgE
 	if err != nil {
 		return common.CustomErr(common.DbErr, err)
 	}
-	err = model.UpdateUser(db, user.Id, mUser)
+	err = model.UpdateUser(db, mUser)
 	if err != nil {
 		return common.CustomErr(common.DbErr, err)
 	}
