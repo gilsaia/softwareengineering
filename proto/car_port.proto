@@ -19,7 +19,7 @@ message CarPort{
 
 message User{
     int64 id = 1;
-    int64 cellphone = 2;
+    string cellphone = 2;
     string nick_name = 3;
     string bind_code = 4;
     UserStatus status = 5;

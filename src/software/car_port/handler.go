@@ -14,6 +14,59 @@ func newCarPortServer() pb_gen.CarPortServiceServer {
 	return new(carPortServer)
 }
 
+func (s *carPortServer) UpdateUser(ctx context.Context, req *pb_gen.ReqUpdateUser) (*pb_gen.RespUpdateUser, error) {
+	resp := &pb_gen.RespUpdateUser{}
+	userLogic, logicErr := logic.NewUserLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	logicErr = userLogic.UpdateUser(req.User, req.Password)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) GetUser(ctx context.Context, req *pb_gen.ReqGetUser) (*pb_gen.RespGetUser, error) {
+	resp := &pb_gen.RespGetUser{}
+	userLogic, logicErr := logic.NewUserLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	user, logicErr := userLogic.GetUser(req.Id)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.User = user
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) MGetUser(ctx context.Context, req *pb_gen.ReqMGetUser) (*pb_gen.RespMGetUser, error) {
+	resp := &pb_gen.RespMGetUser{}
+	userLogic, logicErr := logic.NewUserLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	users, hasMore, nextOffset, logicErr := userLogic.MGetUser(req.Count, req.Offset)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	resp.Users = users
+	resp.HasMore = hasMore
+	resp.NextOffset = nextOffset
+	return resp, nil
+
+}
+
 func (s *carPortServer) AddCarPort(ctx context.Context, req *pb_gen.ReqAddCarPort) (*pb_gen.RespAddCarPort, error) {
 	resp := &pb_gen.RespAddCarPort{}
 	carPortLogic, logicErr := logic.NewCarPortLogic(ctx)
