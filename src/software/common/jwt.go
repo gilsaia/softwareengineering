@@ -11,8 +11,8 @@ import (
 )
 
 type SelfClaims struct {
-	UserId     int64
-	Permission int
+	UserId     int64 `json:"user_id"`
+	Permission int   `json:"permission"`
 	jwt.StandardClaims
 }
 
@@ -45,7 +45,7 @@ func AuthToken(ctx context.Context) (context.Context, error) {
 	if !token.Valid {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid token:%s", token)
 	}
-	if claims, ok := token.Claims.(SelfClaims); ok {
+	if claims, ok := token.Claims.(*SelfClaims); ok {
 		ctx = context.WithValue(ctx, "userId", claims.UserId)
 		ctx = context.WithValue(ctx, "permission", claims.Permission)
 		return nil, BgErr{ErrNo: 40003, ErrMsg: fmt.Sprintf("%t %d", ok, claims.Permission)}
