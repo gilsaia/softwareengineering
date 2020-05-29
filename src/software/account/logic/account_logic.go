@@ -31,9 +31,11 @@ func (logic AccountLogic) Verify(cellphone string) common.BgErr {
 	ran := rand.New(rand.NewSource(int64(time.Now().Nanosecond())))
 	bindCode := fmt.Sprintf("%06v", ran.Int31n(1000000))
 	user := model.User{
-		Id:        common.GenId(),
-		Cellphone: cellphone,
-		BindCode:  bindCode,
+		Id:         common.GenId(),
+		Cellphone:  cellphone,
+		BindCode:   bindCode,
+		Permission: 0,
+		Status:     1,
 	}
 	err := message.SendSms(cellphone, bindCode)
 	if err != nil {
@@ -70,6 +72,7 @@ func (logic AccountLogic) Register(cellphone string, password string, nickname s
 	encodePwd := string(hash)
 	user.Password = encodePwd
 	user.Nickname = nickname
+	user.Status = 2
 	err = model.UpdateUser(db, cellphone, user)
 	if err != nil {
 		return common.CustomErr(common.DbErr, err)
@@ -90,7 +93,7 @@ func (logic AccountLogic) Login(cellphone string, password string) (string, comm
 	if err != nil {
 		return "", common.UserErr
 	}
-	token, err := common.GetToken(user.Id)
+	token, err := common.GetToken(user.Id, user.Permission)
 	if err != nil {
 		return "", common.CustomErr(common.TokenErr, err)
 	}

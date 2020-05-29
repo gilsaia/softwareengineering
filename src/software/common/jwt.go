@@ -10,13 +10,15 @@ import (
 )
 
 type SelfClaims struct {
-	UserId int64
+	UserId     int64
+	Permission int
 	jwt.StandardClaims
 }
 
-func GetToken(userId int64) (string, error) {
+func GetToken(userId int64, permission int) (string, error) {
 	claims := SelfClaims{
 		userId,
+		permission,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
 			Issuer:    "VehicleManager",
@@ -43,6 +45,15 @@ func AuthToken(ctx context.Context) (context.Context, error) {
 	}
 	if claims, ok := token.Claims.(*SelfClaims); ok {
 		ctx = context.WithValue(ctx, "userId", claims.UserId)
+		ctx = context.WithValue(ctx, "permission", claims.Permission)
 	}
 	return ctx, nil
+}
+
+func AuthPermission(ctx context.Context, requiredPermission int) BgErr {
+	permission, exist := ctx.Value("permission").(int)
+	if exist && permission >= requiredPermission {
+		return Success
+	}
+	return PermissionErr
 }

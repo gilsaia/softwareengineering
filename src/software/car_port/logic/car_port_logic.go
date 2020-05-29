@@ -11,8 +11,11 @@ type CarPortLogic struct {
 	ctx context.Context
 }
 
-func NewCarPortLogic(ctx context.Context) CarPortLogic {
-	return CarPortLogic{ctx: ctx}
+func NewCarPortLogic(ctx context.Context, permission int) (*CarPortLogic, common.BgErr) {
+	if err := common.AuthPermission(ctx, permission); !err.Is(common.Success) {
+		return nil, err
+	}
+	return &CarPortLogic{ctx: ctx}, common.Success
 }
 
 func (logic CarPortLogic) CreateCarPort(port *pb_gen.CarPort) common.BgErr {
