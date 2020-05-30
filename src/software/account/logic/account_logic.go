@@ -47,6 +47,7 @@ func (logic AccountLogic) Verify(cellphone string) common.BgErr {
 	}
 	err = model.CreateUser(db, user)
 	if err != nil {
+		db, _ = model.NewDbConnection()
 		err = model.UpdateUser(db, cellphone, user)
 		return common.CustomErr(common.DbErr, err)
 	}
