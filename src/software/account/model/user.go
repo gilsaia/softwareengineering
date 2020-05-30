@@ -27,7 +27,13 @@ func CreateUser(db *gorm.DB, user User) error {
 }
 
 func UpdateUser(db *gorm.DB, cellphone string, user User) error {
-	db = db.Where("cellphone = ?", cellphone).Save(&user)
+	dbUser := User{}
+	db = db.Where("cellphone = ?", cellphone).First(&dbUser)
+	if db.Error != nil {
+		return db.Error
+	}
+	user.Id = dbUser.Id
+	db = db.Model(&user).Updates(user)
 	return db.Error
 }
 
