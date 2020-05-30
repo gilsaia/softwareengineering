@@ -14,6 +14,23 @@ func newCarPortServer() pb_gen.CarPortServiceServer {
 	return new(carPortServer)
 }
 
+func (s *carPortServer) UserInfo(ctx context.Context, req *pb_gen.ReqUserInfo) (*pb_gen.RespUserInfo, error) {
+	resp := &pb_gen.RespUserInfo{}
+	clientLogic, logicErr := logic.NewClientLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	nickname, logicErr := clientLogic.UserInfo(req.Cellphone)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.Nickname = nickname
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
 func (s *carPortServer) UpdateUser(ctx context.Context, req *pb_gen.ReqUpdateUser) (*pb_gen.RespUpdateUser, error) {
 	resp := &pb_gen.RespUpdateUser{}
 	userLogic, logicErr := logic.NewUserLogic(ctx)

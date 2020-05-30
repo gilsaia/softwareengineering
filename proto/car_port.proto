@@ -99,6 +99,16 @@ message RespMGetUser{
     bool has_more = 5;
 }
 
+message ReqUserInfo{
+    string cellphone = 1;
+}
+
+message RespUserInfo{
+    int32 err_no = 1;
+    string err_tips = 2;
+    string nickname = 3;
+}
+
 service CarPortService {
     rpc AddCarPort(ReqAddCarPort) returns (RespAddCarPort){
         option(google.api.http) = {
@@ -138,6 +148,11 @@ service CarPortService {
         option(google.api.http) = {
             post:"/user/MGetUser"
             body:"*"
+        };
+    }
+    rpc UserInfo(ReqUserInfo) returns(RespUserInfo){
+        option(google.api.http) = {
+            get:"/user/UserInfo"
         };
     }
 }

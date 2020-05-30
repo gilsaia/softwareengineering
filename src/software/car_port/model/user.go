@@ -32,6 +32,12 @@ func GetUser(db *gorm.DB, userId int64) (User, error) {
 	return user, db.Error
 }
 
+func GetUserByCellphone(db *gorm.DB, cellphone string) (User, error) {
+	user := User{}
+	db = db.Table("user").Where("cellphone = ?", cellphone).First(&user)
+	return user, db.Error
+}
+
 func MGetUser(db *gorm.DB, offset int32, count int32) ([]User, bool, int32, error) {
 	var users []User
 	var tableCount, nextOffset int32
