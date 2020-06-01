@@ -150,6 +150,7 @@ service CarPortService {
             body:"*"
         };
     }
+    //----------------client-----------------------
     rpc UserInfo(ReqUserInfo) returns(RespUserInfo){
         option(google.api.http) = {
             get:"/user/UserInfo"
