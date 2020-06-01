@@ -2,4 +2,4 @@
 .idea/
 pkg/
 bin/
-/src/software/car_port/common/config.go
+/src/software/common/config.go

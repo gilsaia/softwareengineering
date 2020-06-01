@@ -6,8 +6,8 @@ option go_package = "software/account/pb_gen";
 import "google/api/annotations.proto";
 
 message ReqBackendAuth{
-    string KeyId = 1;
-    string KeySecret = 2;
+    string key_id = 1;
+    string key_secret = 2;
 }
 
 message RespBackendAuth{
@@ -19,16 +19,12 @@ message ReqRegister{
     string cellphone = 1;
     string password = 2;
     string nickname = 3;
+    string bind_code = 4;
 }
 
 message RespRegister{
     int32 err_no = 1;
     string err_tips = 2;
-}
-
-message ReqLogin{
-    string cellphone = 1;
-    string password = 2;
 }
 
 message ReqVerify{
@@ -38,7 +34,11 @@ message ReqVerify{
 message RespVerify{
     int32 err_no = 1;
     string err_tips = 2;
-    string bind_code = 3;
+}
+
+message ReqLogin{
+    string cellphone = 1;
+    string password = 2;
 }
 
 message RespLogin{
