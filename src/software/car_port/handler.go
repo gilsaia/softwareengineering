@@ -71,15 +71,16 @@ func (s *carPortServer) MGetUser(ctx context.Context, req *pb_gen.ReqMGetUser) (
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	users, hasMore, nextOffset, logicErr := userLogic.MGetUser(req.Count, req.Offset)
+	users, tableCount, logicErr := userLogic.MGetUser(req.Count, req.Num)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
 	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
 	resp.Users = users
-	resp.HasMore = hasMore
-	resp.NextOffset = nextOffset
+	resp.Count = tableCount
+	//resp.HasMore = hasMore
+	//resp.NextOffset = nextOffset
 	return resp, nil
 
 }
@@ -140,14 +141,15 @@ func (s *carPortServer) MGetCarPort(ctx context.Context, req *pb_gen.ReqMGetCarP
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	carPorts, hasMore, nextOffset, logicErr := carPortLogic.MGetCarPort(req.Count, req.Offset)
+	carPorts, tableCount, logicErr := carPortLogic.MGetCarPort(req.Count, req.Num)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
 	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
 	resp.Ports = carPorts
-	resp.HasMore = hasMore
-	resp.NextOffset = nextOffset
+	resp.Count = tableCount
+	//resp.HasMore = hasMore
+	//resp.NextOffset = nextOffset
 	return resp, nil
 }

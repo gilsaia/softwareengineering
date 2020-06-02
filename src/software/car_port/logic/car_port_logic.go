@@ -78,20 +78,21 @@ func (logic CarPortLogic) GetCarPort(portId int64) (*pb_gen.CarPort, common.BgEr
 	return port, common.Success
 }
 
-func (logic CarPortLogic) MGetCarPort(count int32, offset int32) ([]*pb_gen.CarPort, bool, int32, common.BgErr) {
+func (logic CarPortLogic) MGetCarPort(count int32, num int32) ([]*pb_gen.CarPort, int32, common.BgErr) {
 	db, err := model.NewDbConnection()
 	if err != nil {
-		return nil, false, 0, common.DbErr
+		return nil, 0, common.DbErr
 	}
-	carports, hasMore, nextOffset, err := model.MGetCarPort(db, offset, count)
+	offset := num * count
+	carports, tableCount, err := model.MGetCarPort(db, offset, count)
 	if err != nil {
-		return nil, false, 0, common.CustomErr(common.DbErr, err)
+		return nil, 0, common.CustomErr(common.DbErr, err)
 	}
 	var carPortList []*pb_gen.CarPort
 	for _, value := range carports {
 		carPortList = append(carPortList, packCarPort(value))
 	}
-	return carPortList, hasMore, nextOffset, common.Success
+	return carPortList, tableCount, common.Success
 }
 
 func packCarPort(port model.CarPort) *pb_gen.CarPort {

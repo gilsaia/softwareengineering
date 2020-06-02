@@ -34,20 +34,21 @@ func GetCarPort(db *gorm.DB, portId int64) (CarPort, error) {
 	return port, db.Error
 }
 
-func MGetCarPort(db *gorm.DB, offset int32, count int32) ([]CarPort, bool, int32, error) {
+func MGetCarPort(db *gorm.DB, offset int32, count int32) ([]CarPort, int32, error) {
 	var carPorts []CarPort
-	var tableCount, nextOffset int32
-	hasMore := false
+	var tableCount int32
+	//var tableCount, nextOffset int32
+	//hasMore := false
 	db = db.Table("car_port").Offset(offset).Limit(count).Find(&carPorts)
 	if db.Error != nil {
-		return nil, false, 0, db.Error
+		return nil, 0, db.Error
 	}
 	db = db.Table("car_port").Offset(-1).Count(&tableCount)
-	if offset+count < tableCount {
-		hasMore = true
-		nextOffset = offset + count
-	} else {
-		nextOffset = tableCount
-	}
-	return carPorts, hasMore, nextOffset, db.Error
+	//if offset+count < tableCount {
+	//	hasMore = true
+	//	nextOffset = offset + count
+	//} else {
+	//	nextOffset = tableCount
+	//}
+	return carPorts, tableCount, db.Error
 }

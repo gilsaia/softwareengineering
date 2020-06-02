@@ -38,20 +38,21 @@ func GetUserByCellphone(db *gorm.DB, cellphone string) (User, error) {
 	return user, db.Error
 }
 
-func MGetUser(db *gorm.DB, offset int32, count int32) ([]User, bool, int32, error) {
+func MGetUser(db *gorm.DB, offset int32, count int32) ([]User, int32, error) {
 	var users []User
-	var tableCount, nextOffset int32
-	hasMore := false
+	var tableCount int32
+	//var tableCount, nextOffset int32
+	//hasMore := false
 	db = db.Table("user").Offset(offset).Limit(count).Find(&users)
 	if db.Error != nil {
-		return nil, false, 0, db.Error
+		return nil, 0, db.Error
 	}
 	db = db.Table("user").Offset(-1).Count(&tableCount)
-	if offset+count < tableCount {
-		hasMore = true
-		nextOffset = offset + count
-	} else {
-		nextOffset = tableCount
-	}
-	return users, hasMore, nextOffset, db.Error
+	//if offset+count < tableCount {
+	//	hasMore = true
+	//	nextOffset = offset + count
+	//} else {
+	//	nextOffset = tableCount
+	//}
+	return users, tableCount, db.Error
 }
