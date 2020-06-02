@@ -28,7 +28,7 @@ func (logic CarPortLogic) CreateCarPort(port *pb_gen.CarPort) common.BgErr {
 	}
 	carPort := model.CarPort{
 		Id:       port.Id,
-		State:    port.State,
+		State:    int32(port.State),
 		DrawNode: port.DrawNode,
 	}
 	err = model.CreateCarPort(db, carPort)
@@ -48,7 +48,7 @@ func (logic CarPortLogic) UpdateCarPort(port *pb_gen.CarPort) common.BgErr {
 	}
 	carPort := model.CarPort{
 		Id:       port.Id,
-		State:    port.State,
+		State:    int32(port.State),
 		DrawNode: port.DrawNode,
 	}
 	err = model.UpdateCarPort(db, carPort)
@@ -70,11 +70,7 @@ func (logic CarPortLogic) GetCarPort(portId int64) (*pb_gen.CarPort, common.BgEr
 	if err != nil {
 		return nil, common.DbErr
 	}
-	port := &pb_gen.CarPort{
-		Id:       carPort.Id,
-		State:    carPort.State,
-		DrawNode: carPort.DrawNode,
-	}
+	port := packCarPort(carPort)
 	return port, common.Success
 }
 
@@ -98,7 +94,7 @@ func (logic CarPortLogic) MGetCarPort(count int32, num int32) ([]*pb_gen.CarPort
 func packCarPort(port model.CarPort) *pb_gen.CarPort {
 	return &pb_gen.CarPort{
 		Id:       port.Id,
-		State:    port.State,
+		State:    pb_gen.CarPortStatus(port.State),
 		DrawNode: port.DrawNode,
 	}
 }

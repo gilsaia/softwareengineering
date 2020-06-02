@@ -11,9 +11,16 @@ enum UserStatus{
     User_Verified = 2;
 }
 
+enum CarPortStatus{
+    Port_Unknown = 0;
+    Port_Empty = 1;
+    Port_User = 2;
+    Port_abandon = 3;
+}
+
 message CarPort{
     int64 id = 1;
-    int32 state = 2;
+    CarPortStatus state = 2;
     int32 draw_node = 3;
 }
 
