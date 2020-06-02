@@ -14,7 +14,7 @@ enum UserStatus{
 enum CarPortStatus{
     Port_Unknown = 0;
     Port_Empty = 1;
-    Port_User = 2;
+    Port_Used = 2;
     Port_abandon = 3;
 }
 
