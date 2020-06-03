@@ -124,6 +124,6 @@ func UserPickUp(db *gorm.DB, portId int64, userId int64) (time.Duration, int64, 
 	parkId := port.Park
 	port.State = 1
 	port.UserId = 0
-	db = db.Save(port)
+	db = db.Save(&port)
 	return duration, parkId, db.Error
 }
