@@ -1,0 +1,39 @@
+syntax = "proto3";
+package car_port;
+
+option go_package = "software/car_port/pb_gen";
+
+import "park.proto";
+import "car_port.proto";
+import "user.proto";
+
+message ReqUserInfo{
+    string cellphone = 1;
+}
+
+message RespUserInfo{
+    int32 err_no = 1;
+    string err_tips = 2;
+    string nickname = 3;
+}
+
+message ReqMetaInfo{
+}
+
+message RespMetaInfo{
+    int32 err_no = 1;
+    string err_tips = 2;
+    int32 count = 3;
+    repeated Park parks = 4;
+}
+
+message ReqParkInfo{
+    int64 park_id = 1;
+}
+
+message RespParkInfo{
+    int32 err_no = 1;
+    string err_tips = 2;
+    string park_name = 3;
+    repeated CarPort ports = 4;
+}

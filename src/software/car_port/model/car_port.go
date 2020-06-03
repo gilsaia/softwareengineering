@@ -7,9 +7,12 @@ import (
 
 type CarPort struct {
 	Id        int64     `json:"id" xorm:"pk autoincr BIGINT(20) 'id'"`
-	State     int32     `json:"state" xorm:"comment('车位状态 0-未定义 1-可用 2-在用 3-废弃') INT(11) 'state'"`
-	DrawNode  int32     `json:"draw_node" xorm:"comment('绘图结点') INT(11) 'draw_node'"`
-	UserId    int64     `json:"user_id" xorm:"comment('当车位被使用时，表示使用者userid') BIGINT(20) 'user_id'"`
+	State     int       `json:"state" xorm:"default 0 comment('车位状态 0-未定义 1-可用 2-在用 3-废弃') INT(11) 'state'"`
+	UserId    int64     `json:"user_id" xorm:"default 0 comment('当车位被使用时，表示使用者userid') BIGINT(20) 'user_id'"`
+	Longitude float64   `json:"longitude" xorm:"default 0 comment('车位经度 x坐标') DOUBLE 'longitude'"`
+	Latitude  float64   `json:"latitude" xorm:"default 0 comment('车位纬度 y坐标') DOUBLE 'latitude'"`
+	Park      int64     `json:"park" xorm:"default 0 comment('所属停车场id') BIGINT(20) 'park'"`
+	LastUsed  time.Time `json:"last_used" xorm:"comment('最近一次使用开始时间') TIMESTAMP 'last_used'"`
 	CreatedAt time.Time `json:"created_at" xorm:"default 'current_timestamp()' created TIMESTAMP 'created_at'"`
 	UpdatedAt time.Time `json:"updated_at" xorm:"default 'current_timestamp()' updated TIMESTAMP 'updated_at'"`
 }
