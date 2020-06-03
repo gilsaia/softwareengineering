@@ -8,6 +8,7 @@ import "user.proto";
 import "car_port.proto";
 import "park.proto";
 import "client.proto";
+import "bill.proto";
 
 service CarPortService {
     rpc AddCarPort(ReqAddCarPort) returns (RespAddCarPort){
@@ -73,6 +74,17 @@ service CarPortService {
             body:"*"
         };
     }
+    rpc GetBill(ReqGetBill) returns (RespGetBill){
+        option(google.api.http) = {
+            get:"/bill/GetBill"
+        };
+    }
+    rpc MGetBill(ReqMGetBill) returns (RespMGetBill){
+        option(google.api.http) = {
+            post:"/bill/MGetBill"
+            body:"*"
+        };
+    }
     //------------------client rpc------------------
     rpc UserInfo(ReqUserInfo) returns (RespUserInfo){
         option(google.api.http) = {
@@ -87,6 +99,24 @@ service CarPortService {
     rpc ParkInfo(ReqParkInfo) returns (RespParkInfo){
         option(google.api.http) = {
             get:"/client/ParkInfo"
+        };
+    }
+    rpc Park(ReqPark) returns (RespPark){
+        option(google.api.http) = {
+            post:"/client/Park"
+            body:"*"
+        };
+    }
+    rpc PickUp(ReqPickUp) returns (RespPickUp){
+        option(google.api.http) = {
+            post:"/client/PickUp"
+            body:"*"
+        };
+    }
+    rpc Pay(ReqPay) returns (RespPay){
+        option(google.api.http) = {
+            post:"/client/Pay"
+            body:"*"
         };
     }
 }

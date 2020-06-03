@@ -37,3 +37,31 @@ message RespParkInfo{
     string park_name = 3;
     repeated CarPort ports = 4;
 }
+
+message ReqPark{
+    int64 car_port_id = 1;
+}
+
+message RespPark{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqPickUp{
+    int64 car_port_id = 1;
+}
+
+message RespPickUp{
+    int32 err_no = 1;
+    string err_tips = 2;
+    int32 charge = 3;
+}
+
+message ReqPay{
+    int32 charge = 1;
+}
+
+message RespPay{
+    int32 err_no = 1;
+    string err_tips = 2;
+}

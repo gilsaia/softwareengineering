@@ -1,0 +1,35 @@
+syntax = "proto3";
+package car_port;
+
+option go_package = "software/car_port/pb_gen";
+
+message Bill{
+    int64 id = 1;
+    int64 user_id = 2;
+    int64 park_id = 3;
+    string duration = 4;
+    int32 charge = 5;
+    int32 status = 6;
+}
+
+message ReqGetBill{
+    int64 bill_id = 1;
+}
+
+message RespGetBill{
+    int32 err_no = 1;
+    string err_tips = 2;
+    Bill bill = 3;
+}
+
+message ReqMGetBill{
+    int32 count = 1;
+    int32 num = 2;
+}
+
+message RespMGetBill{
+    int32 err_no = 1;
+    string err_tips = 2;
+    repeated Bill bills = 3;
+    int32 count = 4;
+}

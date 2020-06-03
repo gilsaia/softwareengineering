@@ -49,6 +49,6 @@ message ReqMGetPark{
 message RespMGetPark{
     int32 err_no = 1;
     string err_tips = 2;
-    repeated Park Parks = 3;
+    repeated Park parks = 3;
     int32 count = 4;
 }
