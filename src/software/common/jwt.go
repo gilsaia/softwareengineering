@@ -58,3 +58,11 @@ func AuthPermission(ctx context.Context, requiredPermission int) BgErr {
 	}
 	return PermissionErr
 }
+
+func GetUserId(ctx context.Context) (int64, BgErr) {
+	userId, exist := ctx.Value("userId").(int64)
+	if exist {
+		return userId, Success
+	}
+	return 0, ParamErr
+}

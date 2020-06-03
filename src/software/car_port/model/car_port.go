@@ -17,6 +17,11 @@ type CarPort struct {
 	UpdatedAt time.Time `json:"updated_at" xorm:"default 'current_timestamp()' updated TIMESTAMP 'updated_at'"`
 }
 
+type parkPort struct {
+	Id  int64
+	Num int32
+}
+
 func (CarPort) TableName() string {
 	return "car_port"
 }
@@ -54,4 +59,31 @@ func MGetCarPort(db *gorm.DB, offset int32, count int32) ([]CarPort, int32, erro
 	//	nextOffset = tableCount
 	//}
 	return carPorts, tableCount, db.Error
+}
+
+func GetParkCarPortNum(db *gorm.DB, parkIds []int64) (map[int64]int32, map[int64]int32, error) {
+	var totalParkPorts, emptyParkPorts []parkPort
+	db = db.Table("car_port").Select("park as id,COUNT(id) as num").Where("where (state=1 or state=2) and park in (?)", parkIds).Group("park").Scan(&totalParkPorts)
+	if db.Error != nil {
+		return nil, nil, db.Error
+	}
+	db = db.Table("car_port").Select("park as id,COUNT(id) as num").Where("where state=1 and park in (?)", parkIds).Group("park").Scan(&emptyParkPorts)
+	if db.Error != nil {
+		return nil, nil, db.Error
+	}
+	totalMap := map[int64]int32{}
+	emptyMap := map[int64]int32{}
+	for _, value := range totalParkPorts {
+		totalMap[value.Id] = value.Num
+	}
+	for _, value := range emptyParkPorts {
+		emptyMap[value.Id] = value.Num
+	}
+	return emptyMap, totalMap, db.Error
+}
+
+func GetParkCarPort(db *gorm.DB, parkId int64) ([]CarPort, error) {
+	var carPorts []CarPort
+	db = db.Table("car_port").Where("park = ?", parkId).Find(&carPorts)
+	return carPorts, db.Error
 }

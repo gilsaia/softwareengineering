@@ -31,6 +31,111 @@ func (s *carPortServer) UserInfo(ctx context.Context, req *pb_gen.ReqUserInfo) (
 	return resp, nil
 }
 
+func (s *carPortServer) MetaInfo(ctx context.Context, _ *pb_gen.ReqMetaInfo) (*pb_gen.RespMetaInfo, error) {
+	resp := &pb_gen.RespMetaInfo{}
+	clientLogic, logicErr := logic.NewClientLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	count, parks, logicErr := clientLogic.MetaInfo()
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.Count = count
+	resp.Parks = parks
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) ParkInfo(ctx context.Context, req *pb_gen.ReqParkInfo) (*pb_gen.RespParkInfo, error) {
+	resp := &pb_gen.RespParkInfo{}
+	clientLogic, logicErr := logic.NewClientLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	parkName, carPorts, logicErr := clientLogic.ParkInfo(req.ParkId)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ParkName = parkName
+	resp.Ports = carPorts
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) AddPark(ctx context.Context, req *pb_gen.ReqAddPark) (*pb_gen.RespAddPark, error) {
+	resp := &pb_gen.RespAddPark{}
+	parkLogic, logicErr := logic.NewParkLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	logicErr = parkLogic.CreatePark(req.Park)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) UpdatePark(ctx context.Context, req *pb_gen.ReqUpdatePark) (*pb_gen.RespUpdatePark, error) {
+	resp := &pb_gen.RespUpdatePark{}
+	parkLogic, logicErr := logic.NewParkLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	logicErr = parkLogic.UpdatePark(req.Park)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) GetPark(ctx context.Context, req *pb_gen.ReqGetPark) (*pb_gen.RespGetPark, error) {
+	resp := &pb_gen.RespGetPark{}
+	parkLogic, logicErr := logic.NewParkLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	park, logicErr := parkLogic.GetPark(req.ParkId)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	resp.Park = park
+	return resp, nil
+}
+
+func (s *carPortServer) MGetPark(ctx context.Context, req *pb_gen.ReqMGetPark) (*pb_gen.RespMGetPark, error) {
+	resp := &pb_gen.RespMGetPark{}
+	parkLogic, logicErr := logic.NewParkLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	parks, tableCount, logicErr := parkLogic.MGetPark(req.Count, req.Num)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	resp.Parks = parks
+	resp.Count = tableCount
+	//resp.HasMore = hasMore
+	//resp.NextOffset = nextOffset
+	return resp, nil
+}
+
 func (s *carPortServer) UpdateUser(ctx context.Context, req *pb_gen.ReqUpdateUser) (*pb_gen.RespUpdateUser, error) {
 	resp := &pb_gen.RespUpdateUser{}
 	userLogic, logicErr := logic.NewUserLogic(ctx)
