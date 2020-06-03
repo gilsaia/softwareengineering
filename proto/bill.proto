@@ -3,13 +3,19 @@ package car_port;
 
 option go_package = "software/car_port/pb_gen";
 
+enum BillStatus{
+    Bill_Unknown = 0;
+    Bill_WaitToPay = 1;
+    Bill_Paid = 2;
+}
+
 message Bill{
     int64 id = 1;
     int64 user_id = 2;
     int64 park_id = 3;
     string duration = 4;
     int32 charge = 5;
-    int32 status = 6;
+    BillStatus status = 6;
 }
 
 message ReqGetBill{

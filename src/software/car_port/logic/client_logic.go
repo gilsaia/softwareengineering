@@ -84,3 +84,92 @@ func (logic ClientLogic) ParkInfo(parkId int64) (parkName string, carPorts []*pb
 	}
 	return park.Name, carPorts, common.Success
 }
+
+func (logic ClientLogic) Park(carPortId int64) common.BgErr {
+	db, err := model.NewDbConnection()
+	if err != nil {
+		return common.CustomErr(common.DbErr, err)
+	}
+	userId, bgErr := common.GetUserId(logic.ctx)
+	if !bgErr.Is(common.Success) {
+		return bgErr
+	}
+	tx := db.Begin()
+	bills, err := model.GetBillByUserId(tx, userId)
+	if len(bills) != 0 {
+		tx.Rollback()
+		return common.BillErr
+	}
+	err = model.UserPark(tx, carPortId, userId)
+	if err != nil {
+		tx.Rollback()
+		return common.CustomErr(common.DbErr, err)
+	}
+	if err = tx.Commit().Error; err != nil {
+		tx.Rollback()
+		return common.CustomErr(common.DbErr, err)
+	}
+	return common.Success
+}
+
+func (logic ClientLogic) PickUp(carPortId int64) (int32, common.BgErr) {
+	db, err := model.NewDbConnection()
+	if err != nil {
+		return 0, common.CustomErr(common.DbErr, err)
+	}
+	userId, bgErr := common.GetUserId(logic.ctx)
+	if !bgErr.Is(common.Success) {
+		return 0, bgErr
+	}
+	tx := db.Begin()
+	duration, parkId, err := model.UserPickUp(tx, carPortId, userId)
+	if err != nil {
+		tx.Rollback()
+		return 0, common.CustomErr(common.DbErr, err)
+	}
+	park, err := model.GetPark(tx, parkId)
+	if err != nil {
+		tx.Rollback()
+		return 0, common.CustomErr(common.DbErr, err)
+	}
+	charge := park.Charge * int(duration.Hours())
+	bill := model.Bill{
+		UserId:   userId,
+		ParkId:   parkId,
+		Duration: duration.String(),
+		Charge:   charge,
+		Status:   1,
+	}
+	err = model.CreateBill(tx, bill)
+	if err != nil {
+		tx.Rollback()
+		return 0, common.CustomErr(common.DbErr, err)
+	}
+	if err = tx.Commit().Error; err != nil {
+		tx.Rollback()
+		return 0, common.CustomErr(common.DbErr, err)
+	}
+	return int32(charge), common.Success
+}
+
+func (logic ClientLogic) Pay(charge int32) common.BgErr {
+	db, err := model.NewDbConnection()
+	if err != nil {
+		return common.CustomErr(common.DbErr, err)
+	}
+	userId, bgErr := common.GetUserId(logic.ctx)
+	if !bgErr.Is(common.Success) {
+		return bgErr
+	}
+	bills, err := model.GetBillByUserId(db, userId)
+	if len(bills) != 1 || charge < int32(bills[0].Charge) {
+		return common.ParamErr
+	}
+	bills[0].Status = 2
+	bills[0].Charge = int(charge)
+	err = model.UpdateBill(db, bills[0])
+	if err != nil {
+		return common.CustomErr(common.DbErr, err)
+	}
+	return common.Success
+}

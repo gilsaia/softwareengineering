@@ -16,3 +16,4 @@ protoc --go_out=plugins=grpc:../src/ client.proto
 protoc --go_out=plugins=grpc:../src/ park.proto
 protoc --go_out=plugins=grpc:../src/ car_port.proto
 protoc --go_out=plugins=grpc:../src/ user.proto
+protoc --go_out=plugins=grpc:../src/ bill.proto

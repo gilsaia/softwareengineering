@@ -14,6 +14,55 @@ func newCarPortServer() pb_gen.CarPortServiceServer {
 	return new(carPortServer)
 }
 
+func (s *carPortServer) Park(ctx context.Context, req *pb_gen.ReqPark) (*pb_gen.RespPark, error) {
+	resp := &pb_gen.RespPark{}
+	clientLogic, logicErr := logic.NewClientLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	logicErr = clientLogic.Park(req.CarPortId)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) PickUp(ctx context.Context, req *pb_gen.ReqPickUp) (*pb_gen.RespPickUp, error) {
+	resp := &pb_gen.RespPickUp{}
+	clientLogic, logicErr := logic.NewClientLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	charge, logicErr := clientLogic.PickUp(req.CarPortId)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.Charge = charge
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) Pay(ctx context.Context, req *pb_gen.ReqPay) (*pb_gen.RespPay, error) {
+	resp := &pb_gen.RespPay{}
+	clientLogic, logicErr := logic.NewClientLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	logicErr = clientLogic.Pay(req.Charge)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
 func (s *carPortServer) UserInfo(ctx context.Context, req *pb_gen.ReqUserInfo) (*pb_gen.RespUserInfo, error) {
 	resp := &pb_gen.RespUserInfo{}
 	clientLogic, logicErr := logic.NewClientLogic(ctx)
@@ -64,6 +113,42 @@ func (s *carPortServer) ParkInfo(ctx context.Context, req *pb_gen.ReqParkInfo) (
 	resp.ParkName = parkName
 	resp.Ports = carPorts
 	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) GetBill(ctx context.Context, req *pb_gen.ReqGetBill) (*pb_gen.RespGetBill, error) {
+	resp := &pb_gen.RespGetBill{}
+	billLogic, logicErr := logic.NewBillLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	bill, logicErr := billLogic.GetBill(req.BillId)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	resp.Bill = bill
+	return resp, nil
+
+}
+
+func (s *carPortServer) MGetBill(ctx context.Context, req *pb_gen.ReqMGetBill) (*pb_gen.RespMGetBill, error) {
+	resp := &pb_gen.RespMGetBill{}
+	billLogic, logicErr := logic.NewBillLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	bills, tableCount, logicErr := billLogic.MGetBill(req.Count, req.Num)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	resp.Bills = bills
+	resp.Count = tableCount
 	return resp, nil
 }
 

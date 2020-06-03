@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/jinzhu/gorm"
+	"software/common"
 	"time"
 )
 
@@ -86,4 +87,43 @@ func GetParkCarPort(db *gorm.DB, parkId int64) ([]CarPort, error) {
 	var carPorts []CarPort
 	db = db.Table("car_port").Where("park = ?", parkId).Find(&carPorts)
 	return carPorts, db.Error
+}
+
+func UserPark(db *gorm.DB, portId int64, userId int64) error {
+	port := CarPort{}
+	db = db.Where("id = ?", portId).First(&port)
+	if db.Error != nil {
+		return db.Error
+	}
+	if port.State == 3 || port.State == 0 {
+		return common.AbandonErr
+	}
+	if port.UserId != 0 || port.State == 2 {
+		return common.OccupyErr
+	}
+	port.State = 2
+	port.UserId = userId
+	port.LastUsed = time.Now()
+	db = db.Model(&port).Updates(port)
+	return db.Error
+}
+
+func UserPickUp(db *gorm.DB, portId int64, userId int64) (time.Duration, int64, error) {
+	port := CarPort{}
+	db = db.Where("id = ?", portId).First(&port)
+	if db.Error != nil {
+		return time.Since(time.Now()), 0, db.Error
+	}
+	if port.State != 2 || port.UserId != userId {
+		return time.Since(time.Now()), 0, common.ParamErr
+	}
+	if port.LastUsed.After(time.Now()) {
+		return time.Since(time.Now()), 0, common.ParamErr
+	}
+	duration := time.Now().Sub(port.LastUsed)
+	parkId := port.Park
+	port.State = 1
+	port.UserId = 0
+	db = db.Model(&port).Updates(port)
+	return duration, parkId, db.Error
 }
