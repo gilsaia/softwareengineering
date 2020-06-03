@@ -63,11 +63,11 @@ func MGetCarPort(db *gorm.DB, offset int32, count int32) ([]CarPort, int32, erro
 
 func GetParkCarPortNum(db *gorm.DB, parkIds []int64) (map[int64]int32, map[int64]int32, error) {
 	var totalParkPorts, emptyParkPorts []parkPort
-	db = db.Table("car_port").Select("park as id,COUNT(id) as num").Where("where (state=1 or state=2) and park in (?)", parkIds).Group("park").Scan(&totalParkPorts)
+	db = db.Table("car_port").Select("park as id,COUNT(id) as num").Where("(state=1 or state=2) AND park in (?)", parkIds).Group("park").Scan(&totalParkPorts)
 	if db.Error != nil {
 		return nil, nil, db.Error
 	}
-	db = db.Table("car_port").Select("park as id,COUNT(id) as num").Where("where state=1 and park in (?)", parkIds).Group("park").Scan(&emptyParkPorts)
+	db = db.Table("car_port").Select("park as id,COUNT(id) as num").Where("state=1 and park in (?)", parkIds).Group("park").Scan(&emptyParkPorts)
 	if db.Error != nil {
 		return nil, nil, db.Error
 	}
