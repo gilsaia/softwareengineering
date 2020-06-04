@@ -244,7 +244,7 @@ func (s *carPortServer) GetUser(ctx context.Context, req *pb_gen.ReqGetUser) (*p
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	user, logicErr := userLogic.GetUser(req.Id)
+	user, logicErr := userLogic.GetUser(req.Id, req.Cellphone)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
