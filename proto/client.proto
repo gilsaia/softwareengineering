@@ -16,6 +16,7 @@ message RespUserInfo{
     string err_tips = 2;
     string nickname = 3;//用户昵称
     int64 car_port_id = 4;//若有停车则为停车位id若无则为0
+    repeated Bill bills = 5;//用户非付款账单
 }
 
 message ReqMetaInfo{

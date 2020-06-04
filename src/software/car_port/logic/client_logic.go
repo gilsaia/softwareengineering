@@ -18,28 +18,35 @@ func NewClientLogic(ctx context.Context) (*ClientLogic, common.BgErr) {
 	return &ClientLogic{ctx: ctx}, common.Success
 }
 
-func (logic ClientLogic) UserInfo(cellphone string) (nickname string, carPortId int64, bgErr common.BgErr) {
+func (logic ClientLogic) UserInfo(cellphone string) (nickname string, carPortId int64, bills []*pb_gen.Bill, bgErr common.BgErr) {
 	db, err := model.NewDbConnection()
 	if err != nil {
-		return "", 0, common.CustomErr(common.DbErr, err)
+		return "", 0, nil, common.CustomErr(common.DbErr, err)
 	}
 	user, err := model.GetUserByCellphone(db, cellphone)
 	if err != nil {
-		return "", 0, common.CustomErr(common.DbErr, err)
+		return "", 0, nil, common.CustomErr(common.DbErr, err)
 	}
 	userId, err := common.GetUserId(logic.ctx)
 	if err != nil {
-		return "", 0, common.CustomErr(common.TokenErr, err)
+		return "", 0, nil, common.CustomErr(common.TokenErr, err)
 	}
 	carPorts, err := model.GetUserPort(db, userId)
 	if err != nil {
-		return "", 0, common.CustomErr(common.DbErr, err)
+		return "", 0, nil, common.CustomErr(common.DbErr, err)
 	}
 	carPortId = 0
 	if len(carPorts) != 0 {
 		carPortId = carPorts[0].Id
 	}
-	return user.Nickname, carPortId, common.Success
+	mBills, err := model.GetBillByUserId(db, userId)
+	if err != nil {
+		return "", 0, nil, common.CustomErr(common.DbErr, err)
+	}
+	for _, value := range mBills {
+		bills = append(bills, packBill(value))
+	}
+	return user.Nickname, carPortId, bills, common.Success
 }
 
 func (logic ClientLogic) BillInfo(billId int64) (*pb_gen.Bill, common.BgErr) {

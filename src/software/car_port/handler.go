@@ -87,13 +87,14 @@ func (s *carPortServer) UserInfo(ctx context.Context, req *pb_gen.ReqUserInfo) (
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	nickname, carPortId, logicErr := clientLogic.UserInfo(req.Cellphone)
+	nickname, carPortId, bills, logicErr := clientLogic.UserInfo(req.Cellphone)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
 	resp.Nickname = nickname
 	resp.CarPortId = carPortId
+	resp.Bills = bills
 	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
 	return resp, nil
 }
