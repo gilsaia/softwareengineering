@@ -29,6 +29,7 @@ message RespUpdateUser{
 
 message ReqGetUser{
     int64 id = 1;
+    string cellphone = 2;
 }
 
 message RespGetUser{
