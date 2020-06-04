@@ -1,0 +1,54 @@
+syntax = "proto3";
+package car_port;
+
+option go_package = "software/car_port/pb_gen";
+
+message Park{
+    int64 id = 1;//停车场id
+    string name = 2;//停车场名字
+    double longitude = 3;//停车场经度
+    double latitude = 4;//停车场维度
+    int32 charge = 5;//停车场费用
+    int32 empty_ports = 6;//空余车位
+    int32 total_ports = 7;//总车位
+}
+
+message ReqAddPark{
+    Park park = 1;
+}
+
+message RespAddPark{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqUpdatePark{
+    Park park = 1;
+}
+
+message RespUpdatePark{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqGetPark{
+    int64 park_id = 1;
+}
+
+message RespGetPark{
+    int32 err_no = 1;
+    string err_tips = 2;
+    Park park = 3;
+}
+
+message ReqMGetPark{
+    int32 count = 1;
+    int32 num = 2;
+}
+
+message RespMGetPark{
+    int32 err_no = 1;
+    string err_tips = 2;
+    repeated Park parks = 3;
+    int32 count = 4;
+}

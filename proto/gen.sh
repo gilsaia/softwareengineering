@@ -8,3 +8,12 @@ protoc -I. --grpc-gateway_out=logtostderr=true,paths=source_relative:../src/soft
 
 protoc --go_out=plugins=grpc:../src/ account.proto
 protoc -I. --grpc-gateway_out=logtostderr=true,paths=source_relative:../src/software/account/pb_gen account.proto
+
+protoc --go_out=plugins=grpc:../src/ backend.proto
+protoc -I. --grpc-gateway_out=logtostderr=true,paths=source_relative:../src/software/car_port/pb_gen backend.proto
+
+protoc --go_out=plugins=grpc:../src/ client.proto
+protoc --go_out=plugins=grpc:../src/ park.proto
+protoc --go_out=plugins=grpc:../src/ car_port.proto
+protoc --go_out=plugins=grpc:../src/ user.proto
+protoc --go_out=plugins=grpc:../src/ bill.proto

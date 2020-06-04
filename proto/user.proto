@@ -1,0 +1,54 @@
+syntax = "proto3";
+package car_port;
+
+option go_package = "software/car_port/pb_gen";
+
+enum UserStatus{
+    User_Unknown = 0;
+    User_Unverified = 1;
+    User_Verified = 2;
+}
+
+message User{
+    int64 id = 1;//用户id
+    string cellphone = 2;//用户账号/手机号
+    string nick_name = 3;//用户昵称
+    string bind_code = 4;//用户验证码
+    UserStatus status = 5;//用户状态
+}
+
+message ReqUpdateUser{
+    User user = 1;
+    string password = 2;
+}
+
+message RespUpdateUser{
+    int32 err_no = 1;
+    string err_tips = 2;
+}
+
+message ReqGetUser{
+    int64 id = 1;
+    string cellphone = 2;
+}
+
+message RespGetUser{
+    int32 err_no = 1;
+    string err_tips = 2;
+    User user = 3;
+}
+
+message ReqMGetUser{
+    int32 count = 1;
+    int32 num = 2;
+    //    int32 offset = 2;
+}
+
+message RespMGetUser{
+    int32 err_no = 1;
+    string err_tips = 2;
+    repeated User users = 3;
+    int32 count = 4;
+    //    int32 next_offset = 4;
+    //    bool has_more = 5;
+}

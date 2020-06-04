@@ -5,6 +5,7 @@ import (
 	"software/car_port/model"
 	"software/car_port/pb_gen"
 	"software/common"
+	"time"
 )
 
 type CarPortLogic struct {
@@ -27,13 +28,16 @@ func (logic CarPortLogic) CreateCarPort(port *pb_gen.CarPort) common.BgErr {
 		return common.DbErr
 	}
 	carPort := model.CarPort{
-		Id:       port.Id,
-		State:    port.State,
-		DrawNode: port.DrawNode,
+		Id:        port.Id,
+		State:     int(port.State),
+		Latitude:  port.Latitude,
+		Longitude: port.Longitude,
+		Park:      port.Park,
+		LastUsed:  time.Now(),
 	}
 	err = model.CreateCarPort(db, carPort)
 	if err != nil {
-		return common.DbErr
+		return common.CustomErr(common.DbErr, err)
 	}
 	return common.Success
 }
@@ -47,9 +51,11 @@ func (logic CarPortLogic) UpdateCarPort(port *pb_gen.CarPort) common.BgErr {
 		return common.DbErr
 	}
 	carPort := model.CarPort{
-		Id:       port.Id,
-		State:    port.State,
-		DrawNode: port.DrawNode,
+		Id:        port.Id,
+		State:     int(port.State),
+		Longitude: port.Longitude,
+		Latitude:  port.Latitude,
+		Park:      port.Park,
 	}
 	err = model.UpdateCarPort(db, carPort)
 	if err != nil {
@@ -70,34 +76,33 @@ func (logic CarPortLogic) GetCarPort(portId int64) (*pb_gen.CarPort, common.BgEr
 	if err != nil {
 		return nil, common.DbErr
 	}
-	port := &pb_gen.CarPort{
-		Id:       carPort.Id,
-		State:    carPort.State,
-		DrawNode: carPort.DrawNode,
-	}
+	port := packCarPort(carPort)
 	return port, common.Success
 }
 
-func (logic CarPortLogic) MGetCarPort(count int32, offset int32) ([]*pb_gen.CarPort, bool, int32, common.BgErr) {
+func (logic CarPortLogic) MGetCarPort(count int32, num int32) ([]*pb_gen.CarPort, int32, common.BgErr) {
 	db, err := model.NewDbConnection()
 	if err != nil {
-		return nil, false, 0, common.DbErr
+		return nil, 0, common.DbErr
 	}
-	carports, hasMore, nextOffset, err := model.MGetCarPort(db, offset, count)
+	offset := num * count
+	carports, tableCount, err := model.MGetCarPort(db, offset, count)
 	if err != nil {
-		return nil, false, 0, common.CustomErr(common.DbErr, err)
+		return nil, 0, common.CustomErr(common.DbErr, err)
 	}
 	var carPortList []*pb_gen.CarPort
 	for _, value := range carports {
 		carPortList = append(carPortList, packCarPort(value))
 	}
-	return carPortList, hasMore, nextOffset, common.Success
+	return carPortList, tableCount, common.Success
 }
 
 func packCarPort(port model.CarPort) *pb_gen.CarPort {
 	return &pb_gen.CarPort{
-		Id:       port.Id,
-		State:    port.State,
-		DrawNode: port.DrawNode,
+		Id:        port.Id,
+		State:     pb_gen.CarPortStatus(port.State),
+		Longitude: port.Longitude,
+		Latitude:  port.Latitude,
+		Park:      port.Park,
 	}
 }

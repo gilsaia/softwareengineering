@@ -1,0 +1,127 @@
+syntax = "proto3";
+package car_port;
+
+option go_package = "software/car_port/pb_gen";
+
+import "google/api/annotations.proto";
+import "user.proto";
+import "car_port.proto";
+import "park.proto";
+import "client.proto";
+import "bill.proto";
+
+service CarPortService {
+    rpc AddCarPort(ReqAddCarPort) returns (RespAddCarPort){
+        option(google.api.http) = {
+            post:"/car/AddCarPort"
+            body:"*"
+        };
+    }
+    rpc UpdateCarPort(ReqUpdateCarPort) returns (RespUpdateCarPort){
+        option(google.api.http) = {
+            post:"/car/UpdateCarPort"
+            body:"*"
+        };
+    }
+    rpc GetCarPort(ReqGetCarPort) returns (RespGetCarPort){
+        option(google.api.http) = {
+            get:"/car/GetCarPort"
+        };
+    }
+    rpc MGetCarPort(ReqMGetCarPort) returns(RespMGetCarPort){
+        option(google.api.http) = {
+            post:"/car/MGetCarPort"
+            body:"*"
+        };
+    }
+    rpc UpdateUser(ReqUpdateUser) returns (RespUpdateUser){
+        option(google.api.http) = {
+            post:"/user/UpdateUser"
+            body:"*"
+        };
+    }
+    rpc GetUser(ReqGetUser) returns (RespGetUser){
+        option(google.api.http) = {
+            get:"/user/GetUser"
+        };
+    }
+    rpc MGetUser(ReqMGetUser) returns (RespMGetUser){
+        option(google.api.http) = {
+            post:"/user/MGetUser"
+            body:"*"
+        };
+    }
+    rpc AddPark(ReqAddPark) returns (RespAddPark){
+        option(google.api.http) = {
+            post:"/park/AddPark"
+            body:"*"
+        };
+    }
+    rpc UpdatePark(ReqUpdatePark) returns (RespUpdatePark){
+        option(google.api.http) = {
+            post:"/park/UpdatePark"
+            body:"*"
+        };
+    }
+    rpc GetPark(ReqGetPark) returns (RespGetPark){
+        option(google.api.http) = {
+            get:"/park/GetPark"
+        };
+    }
+    rpc MGetPark(ReqMGetPark) returns (RespMGetPark){
+        option(google.api.http) = {
+            post:"/park/MGetPark"
+            body:"*"
+        };
+    }
+    rpc GetBill(ReqGetBill) returns (RespGetBill){
+        option(google.api.http) = {
+            get:"/bill/GetBill"
+        };
+    }
+    rpc MGetBill(ReqMGetBill) returns (RespMGetBill){
+        option(google.api.http) = {
+            post:"/bill/MGetBill"
+            body:"*"
+        };
+    }
+    //------------------client rpc------------------
+    rpc UserInfo(ReqUserInfo) returns (RespUserInfo){
+        option(google.api.http) = {
+            get:"/client/UserInfo"
+        };
+    }
+    rpc MetaInfo(ReqMetaInfo) returns (RespMetaInfo){
+        option(google.api.http) = {
+            get:"/client/MetaInfo"
+        };
+    }
+    rpc ParkInfo(ReqParkInfo) returns (RespParkInfo){
+        option(google.api.http) = {
+            get:"/client/ParkInfo"
+        };
+    }
+    rpc BillInfo(ReqBillInfo) returns (RespBillInfo){
+        option(google.api.http) = {
+            get:"/client/BillInfo"
+        };
+    }
+    rpc Park(ReqPark) returns (RespPark){
+        option(google.api.http) = {
+            post:"/client/Park"
+            body:"*"
+        };
+    }
+    rpc PickUp(ReqPickUp) returns (RespPickUp){
+        option(google.api.http) = {
+            post:"/client/PickUp"
+            body:"*"
+        };
+    }
+    rpc Pay(ReqPay) returns (RespPay){
+        option(google.api.http) = {
+            post:"/client/Pay"
+            body:"*"
+        };
+    }
+}
