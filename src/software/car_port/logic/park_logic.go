@@ -24,7 +24,7 @@ func (logic ParkLogic) CreatePark(park *pb_gen.Park) common.BgErr {
 	}
 	db, err := model.NewDbConnection()
 	if err != nil {
-		return common.DbErr
+		return common.CustomErr(common.DbErr, err)
 	}
 	mPark := model.Park{
 		Id:        park.Id,
@@ -35,7 +35,7 @@ func (logic ParkLogic) CreatePark(park *pb_gen.Park) common.BgErr {
 	}
 	err = model.CreatePark(db, mPark)
 	if err != nil {
-		return common.DbErr
+		return common.CustomErr(common.DbErr, err)
 	}
 	return common.Success
 }
