@@ -101,6 +101,11 @@ service CarPortService {
             get:"/client/ParkInfo"
         };
     }
+    rpc BillInfo(ReqBillInfo) returns (RespBillInfo){
+        option(google.api.http) = {
+            get:"/client/BillInfo"
+        };
+    }
     rpc Park(ReqPark) returns (RespPark){
         option(google.api.http) = {
             post:"/client/Park"

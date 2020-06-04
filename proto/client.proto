@@ -5,16 +5,17 @@ option go_package = "software/car_port/pb_gen";
 
 import "park.proto";
 import "car_port.proto";
-import "user.proto";
+import "bill.proto";
 
 message ReqUserInfo{
-    string cellphone = 1;
+    string cellphone = 1;//获取用户信息
 }
 
 message RespUserInfo{
     int32 err_no = 1;
     string err_tips = 2;
-    string nickname = 3;
+    string nickname = 3;//用户昵称
+    int64 car_port_id = 4;//若有停车则为停车位id若无则为0
 }
 
 message ReqMetaInfo{
@@ -23,8 +24,8 @@ message ReqMetaInfo{
 message RespMetaInfo{
     int32 err_no = 1;
     string err_tips = 2;
-    int32 count = 3;
-    repeated Park parks = 4;
+    int32 count = 3;//停车场数量
+    repeated Park parks = 4;//停车场信息
 }
 
 message ReqParkInfo{
@@ -34,11 +35,21 @@ message ReqParkInfo{
 message RespParkInfo{
     int32 err_no = 1;
     string err_tips = 2;
-    string park_name = 3;
-    repeated CarPort ports = 4;
+    string park_name = 3;//停车场名字
+    repeated CarPort ports = 4;//停车场车位
 }
 
-message ReqPark{
+message ReqBillInfo{
+    int64 bill_id = 1;
+}
+
+message RespBillInfo{
+    int32 err_no = 1;
+    string err_tips = 2;
+    Bill bill = 3;
+}
+
+message ReqPark{//停车
     int64 car_port_id = 1;
 }
 
@@ -47,18 +58,18 @@ message RespPark{
     string err_tips = 2;
 }
 
-message ReqPickUp{
+message ReqPickUp{//取车
     int64 car_port_id = 1;
 }
 
 message RespPickUp{
     int32 err_no = 1;
     string err_tips = 2;
-    int32 charge = 3;
+    int64 bill_id = 3;//账单id
 }
 
-message ReqPay{
-    int32 charge = 1;
+message ReqPay{//付款
+    int32 bill_id = 1;
 }
 
 message RespPay{
