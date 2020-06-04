@@ -37,12 +37,12 @@ func (s *carPortServer) PickUp(ctx context.Context, req *pb_gen.ReqPickUp) (*pb_
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	charge, logicErr := clientLogic.PickUp(req.CarPortId)
+	billId, logicErr := clientLogic.PickUp(req.CarPortId)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	resp.Charge = charge
+	resp.BillId = billId
 	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
 	return resp, nil
 }
@@ -54,11 +54,28 @@ func (s *carPortServer) Pay(ctx context.Context, req *pb_gen.ReqPay) (*pb_gen.Re
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	logicErr = clientLogic.Pay(req.Charge)
+	logicErr = clientLogic.Pay(req.BillId)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
+	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
+	return resp, nil
+}
+
+func (s *carPortServer) BillInfo(ctx context.Context, req *pb_gen.ReqBillInfo) (*pb_gen.RespBillInfo, error) {
+	resp := &pb_gen.RespBillInfo{}
+	clientLogic, logicErr := logic.NewClientLogic(ctx)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	bill, logicErr := clientLogic.BillInfo(req.BillId)
+	if !logicErr.Is(common.Success) {
+		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
+		return resp, nil
+	}
+	resp.Bill = bill
 	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
 	return resp, nil
 }
@@ -70,12 +87,13 @@ func (s *carPortServer) UserInfo(ctx context.Context, req *pb_gen.ReqUserInfo) (
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
-	nickname, logicErr := clientLogic.UserInfo(req.Cellphone)
+	nickname, carPortId, logicErr := clientLogic.UserInfo(req.Cellphone)
 	if !logicErr.Is(common.Success) {
 		resp.ErrNo, resp.ErrTips = logicErr.ErrNoMsg()
 		return resp, nil
 	}
 	resp.Nickname = nickname
+	resp.CarPortId = carPortId
 	resp.ErrNo, resp.ErrTips = common.Success.ErrNoMsg()
 	return resp, nil
 }

@@ -83,6 +83,12 @@ func GetParkCarPortNum(db *gorm.DB, parkIds []int64) (map[int64]int32, map[int64
 	return emptyMap, totalMap, db.Error
 }
 
+func GetUserPort(db *gorm.DB, userId int64) ([]CarPort, error) {
+	var carPorts []CarPort
+	db = db.Table("car_port").Where("user_id = ?", userId).Find(&carPorts)
+	return carPorts, db.Error
+}
+
 func GetParkCarPort(db *gorm.DB, parkId int64) ([]CarPort, error) {
 	var carPorts []CarPort
 	db = db.Table("car_port").Where("park = ?", parkId).Find(&carPorts)

@@ -30,7 +30,7 @@ type ReqUserInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Cellphone string `protobuf:"bytes,1,opt,name=cellphone,proto3" json:"cellphone,omitempty"`
+	Cellphone string `protobuf:"bytes,1,opt,name=cellphone,proto3" json:"cellphone,omitempty"` //获取用户信息
 }
 
 func (x *ReqUserInfo) Reset() {
@@ -77,9 +77,10 @@ type RespUserInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ErrNo    int32  `protobuf:"varint,1,opt,name=err_no,json=errNo,proto3" json:"err_no,omitempty"`
-	ErrTips  string `protobuf:"bytes,2,opt,name=err_tips,json=errTips,proto3" json:"err_tips,omitempty"`
-	Nickname string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	ErrNo     int32  `protobuf:"varint,1,opt,name=err_no,json=errNo,proto3" json:"err_no,omitempty"`
+	ErrTips   string `protobuf:"bytes,2,opt,name=err_tips,json=errTips,proto3" json:"err_tips,omitempty"`
+	Nickname  string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`                       //用户昵称
+	CarPortId int64  `protobuf:"varint,4,opt,name=car_port_id,json=carPortId,proto3" json:"car_port_id,omitempty"` //若有停车则为停车位id若无则为0
 }
 
 func (x *RespUserInfo) Reset() {
@@ -135,6 +136,13 @@ func (x *RespUserInfo) GetNickname() string {
 	return ""
 }
 
+func (x *RespUserInfo) GetCarPortId() int64 {
+	if x != nil {
+		return x.CarPortId
+	}
+	return 0
+}
+
 type ReqMetaInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -180,8 +188,8 @@ type RespMetaInfo struct {
 
 	ErrNo   int32   `protobuf:"varint,1,opt,name=err_no,json=errNo,proto3" json:"err_no,omitempty"`
 	ErrTips string  `protobuf:"bytes,2,opt,name=err_tips,json=errTips,proto3" json:"err_tips,omitempty"`
-	Count   int32   `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
-	Parks   []*Park `protobuf:"bytes,4,rep,name=parks,proto3" json:"parks,omitempty"`
+	Count   int32   `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"` //停车场数量
+	Parks   []*Park `protobuf:"bytes,4,rep,name=parks,proto3" json:"parks,omitempty"`  //停车场信息
 }
 
 func (x *RespMetaInfo) Reset() {
@@ -298,8 +306,8 @@ type RespParkInfo struct {
 
 	ErrNo    int32      `protobuf:"varint,1,opt,name=err_no,json=errNo,proto3" json:"err_no,omitempty"`
 	ErrTips  string     `protobuf:"bytes,2,opt,name=err_tips,json=errTips,proto3" json:"err_tips,omitempty"`
-	ParkName string     `protobuf:"bytes,3,opt,name=park_name,json=parkName,proto3" json:"park_name,omitempty"`
-	Ports    []*CarPort `protobuf:"bytes,4,rep,name=ports,proto3" json:"ports,omitempty"`
+	ParkName string     `protobuf:"bytes,3,opt,name=park_name,json=parkName,proto3" json:"park_name,omitempty"` //停车场名字
+	Ports    []*CarPort `protobuf:"bytes,4,rep,name=ports,proto3" json:"ports,omitempty"`                       //停车场车位
 }
 
 func (x *RespParkInfo) Reset() {
@@ -362,6 +370,116 @@ func (x *RespParkInfo) GetPorts() []*CarPort {
 	return nil
 }
 
+type ReqBillInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	BillId int64 `protobuf:"varint,1,opt,name=bill_id,json=billId,proto3" json:"bill_id,omitempty"`
+}
+
+func (x *ReqBillInfo) Reset() {
+	*x = ReqBillInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_client_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReqBillInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReqBillInfo) ProtoMessage() {}
+
+func (x *ReqBillInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_client_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReqBillInfo.ProtoReflect.Descriptor instead.
+func (*ReqBillInfo) Descriptor() ([]byte, []int) {
+	return file_client_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ReqBillInfo) GetBillId() int64 {
+	if x != nil {
+		return x.BillId
+	}
+	return 0
+}
+
+type RespBillInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrNo   int32  `protobuf:"varint,1,opt,name=err_no,json=errNo,proto3" json:"err_no,omitempty"`
+	ErrTips string `protobuf:"bytes,2,opt,name=err_tips,json=errTips,proto3" json:"err_tips,omitempty"`
+	Bill    *Bill  `protobuf:"bytes,3,opt,name=bill,proto3" json:"bill,omitempty"`
+}
+
+func (x *RespBillInfo) Reset() {
+	*x = RespBillInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_client_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RespBillInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespBillInfo) ProtoMessage() {}
+
+func (x *RespBillInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_client_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespBillInfo.ProtoReflect.Descriptor instead.
+func (*RespBillInfo) Descriptor() ([]byte, []int) {
+	return file_client_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *RespBillInfo) GetErrNo() int32 {
+	if x != nil {
+		return x.ErrNo
+	}
+	return 0
+}
+
+func (x *RespBillInfo) GetErrTips() string {
+	if x != nil {
+		return x.ErrTips
+	}
+	return ""
+}
+
+func (x *RespBillInfo) GetBill() *Bill {
+	if x != nil {
+		return x.Bill
+	}
+	return nil
+}
+
 type ReqPark struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -373,7 +491,7 @@ type ReqPark struct {
 func (x *ReqPark) Reset() {
 	*x = ReqPark{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_client_proto_msgTypes[6]
+		mi := &file_client_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -386,7 +504,7 @@ func (x *ReqPark) String() string {
 func (*ReqPark) ProtoMessage() {}
 
 func (x *ReqPark) ProtoReflect() protoreflect.Message {
-	mi := &file_client_proto_msgTypes[6]
+	mi := &file_client_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -399,7 +517,7 @@ func (x *ReqPark) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReqPark.ProtoReflect.Descriptor instead.
 func (*ReqPark) Descriptor() ([]byte, []int) {
-	return file_client_proto_rawDescGZIP(), []int{6}
+	return file_client_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ReqPark) GetCarPortId() int64 {
@@ -421,7 +539,7 @@ type RespPark struct {
 func (x *RespPark) Reset() {
 	*x = RespPark{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_client_proto_msgTypes[7]
+		mi := &file_client_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -434,7 +552,7 @@ func (x *RespPark) String() string {
 func (*RespPark) ProtoMessage() {}
 
 func (x *RespPark) ProtoReflect() protoreflect.Message {
-	mi := &file_client_proto_msgTypes[7]
+	mi := &file_client_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -447,7 +565,7 @@ func (x *RespPark) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RespPark.ProtoReflect.Descriptor instead.
 func (*RespPark) Descriptor() ([]byte, []int) {
-	return file_client_proto_rawDescGZIP(), []int{7}
+	return file_client_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *RespPark) GetErrNo() int32 {
@@ -475,7 +593,7 @@ type ReqPickUp struct {
 func (x *ReqPickUp) Reset() {
 	*x = ReqPickUp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_client_proto_msgTypes[8]
+		mi := &file_client_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -488,7 +606,7 @@ func (x *ReqPickUp) String() string {
 func (*ReqPickUp) ProtoMessage() {}
 
 func (x *ReqPickUp) ProtoReflect() protoreflect.Message {
-	mi := &file_client_proto_msgTypes[8]
+	mi := &file_client_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -501,7 +619,7 @@ func (x *ReqPickUp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReqPickUp.ProtoReflect.Descriptor instead.
 func (*ReqPickUp) Descriptor() ([]byte, []int) {
-	return file_client_proto_rawDescGZIP(), []int{8}
+	return file_client_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ReqPickUp) GetCarPortId() int64 {
@@ -518,13 +636,13 @@ type RespPickUp struct {
 
 	ErrNo   int32  `protobuf:"varint,1,opt,name=err_no,json=errNo,proto3" json:"err_no,omitempty"`
 	ErrTips string `protobuf:"bytes,2,opt,name=err_tips,json=errTips,proto3" json:"err_tips,omitempty"`
-	Charge  int32  `protobuf:"varint,3,opt,name=charge,proto3" json:"charge,omitempty"`
+	BillId  int64  `protobuf:"varint,3,opt,name=bill_id,json=billId,proto3" json:"bill_id,omitempty"` //账单id
 }
 
 func (x *RespPickUp) Reset() {
 	*x = RespPickUp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_client_proto_msgTypes[9]
+		mi := &file_client_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -537,7 +655,7 @@ func (x *RespPickUp) String() string {
 func (*RespPickUp) ProtoMessage() {}
 
 func (x *RespPickUp) ProtoReflect() protoreflect.Message {
-	mi := &file_client_proto_msgTypes[9]
+	mi := &file_client_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -550,7 +668,7 @@ func (x *RespPickUp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RespPickUp.ProtoReflect.Descriptor instead.
 func (*RespPickUp) Descriptor() ([]byte, []int) {
-	return file_client_proto_rawDescGZIP(), []int{9}
+	return file_client_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *RespPickUp) GetErrNo() int32 {
@@ -567,9 +685,9 @@ func (x *RespPickUp) GetErrTips() string {
 	return ""
 }
 
-func (x *RespPickUp) GetCharge() int32 {
+func (x *RespPickUp) GetBillId() int64 {
 	if x != nil {
-		return x.Charge
+		return x.BillId
 	}
 	return 0
 }
@@ -579,13 +697,13 @@ type ReqPay struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Charge int32 `protobuf:"varint,1,opt,name=charge,proto3" json:"charge,omitempty"`
+	BillId int64 `protobuf:"varint,1,opt,name=bill_id,json=billId,proto3" json:"bill_id,omitempty"`
 }
 
 func (x *ReqPay) Reset() {
 	*x = ReqPay{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_client_proto_msgTypes[10]
+		mi := &file_client_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -598,7 +716,7 @@ func (x *ReqPay) String() string {
 func (*ReqPay) ProtoMessage() {}
 
 func (x *ReqPay) ProtoReflect() protoreflect.Message {
-	mi := &file_client_proto_msgTypes[10]
+	mi := &file_client_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -611,12 +729,12 @@ func (x *ReqPay) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReqPay.ProtoReflect.Descriptor instead.
 func (*ReqPay) Descriptor() ([]byte, []int) {
-	return file_client_proto_rawDescGZIP(), []int{10}
+	return file_client_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *ReqPay) GetCharge() int32 {
+func (x *ReqPay) GetBillId() int64 {
 	if x != nil {
-		return x.Charge
+		return x.BillId
 	}
 	return 0
 }
@@ -633,7 +751,7 @@ type RespPay struct {
 func (x *RespPay) Reset() {
 	*x = RespPay{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_client_proto_msgTypes[11]
+		mi := &file_client_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -646,7 +764,7 @@ func (x *RespPay) String() string {
 func (*RespPay) ProtoMessage() {}
 
 func (x *RespPay) ProtoReflect() protoreflect.Message {
-	mi := &file_client_proto_msgTypes[11]
+	mi := &file_client_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -659,7 +777,7 @@ func (x *RespPay) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RespPay.ProtoReflect.Descriptor instead.
 func (*RespPay) Descriptor() ([]byte, []int) {
-	return file_client_proto_rawDescGZIP(), []int{11}
+	return file_client_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *RespPay) GetErrNo() int32 {
@@ -682,16 +800,18 @@ var file_client_proto_rawDesc = []byte{
 	0x0a, 0x0c, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08,
 	0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x1a, 0x0a, 0x70, 0x61, 0x72, 0x6b, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0a, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0a, 0x62, 0x69, 0x6c, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x22, 0x2b, 0x0a, 0x0b, 0x52, 0x65, 0x71, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x12,
 	0x1c, 0x0a, 0x09, 0x63, 0x65, 0x6c, 0x6c, 0x70, 0x68, 0x6f, 0x6e, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x09, 0x63, 0x65, 0x6c, 0x6c, 0x70, 0x68, 0x6f, 0x6e, 0x65, 0x22, 0x5c, 0x0a,
+	0x28, 0x09, 0x52, 0x09, 0x63, 0x65, 0x6c, 0x6c, 0x70, 0x68, 0x6f, 0x6e, 0x65, 0x22, 0x7c, 0x0a,
 	0x0c, 0x52, 0x65, 0x73, 0x70, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x15, 0x0a,
 	0x06, 0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x65,
 	0x72, 0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x5f, 0x74, 0x69, 0x70, 0x73,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x72, 0x72, 0x54, 0x69, 0x70, 0x73, 0x12,
 	0x1a, 0x0a, 0x08, 0x6e, 0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x08, 0x6e, 0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x0d, 0x0a, 0x0b, 0x52,
+	0x09, 0x52, 0x08, 0x6e, 0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0b, 0x63,
+	0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x09, 0x63, 0x61, 0x72, 0x50, 0x6f, 0x72, 0x74, 0x49, 0x64, 0x22, 0x0d, 0x0a, 0x0b, 0x52,
 	0x65, 0x71, 0x4d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x7c, 0x0a, 0x0c, 0x52, 0x65,
 	0x73, 0x70, 0x4d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x15, 0x0a, 0x06, 0x65, 0x72,
 	0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x65, 0x72, 0x72, 0x4e,
@@ -711,24 +831,33 @@ var file_client_proto_rawDesc = []byte{
 	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x72, 0x6b, 0x4e, 0x61, 0x6d, 0x65,
 	0x12, 0x27, 0x0a, 0x05, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x11, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x43, 0x61, 0x72, 0x50, 0x6f,
-	0x72, 0x74, 0x52, 0x05, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x22, 0x29, 0x0a, 0x07, 0x52, 0x65, 0x71,
-	0x50, 0x61, 0x72, 0x6b, 0x12, 0x1e, 0x0a, 0x0b, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74,
-	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x61, 0x72, 0x50, 0x6f,
-	0x72, 0x74, 0x49, 0x64, 0x22, 0x3c, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x50, 0x61, 0x72, 0x6b,
-	0x12, 0x15, 0x0a, 0x06, 0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
-	0x52, 0x05, 0x65, 0x72, 0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x5f, 0x74,
-	0x69, 0x70, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x72, 0x72, 0x54, 0x69,
-	0x70, 0x73, 0x22, 0x2b, 0x0a, 0x09, 0x52, 0x65, 0x71, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x12,
-	0x1e, 0x0a, 0x0b, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x61, 0x72, 0x50, 0x6f, 0x72, 0x74, 0x49, 0x64, 0x22,
-	0x56, 0x0a, 0x0a, 0x52, 0x65, 0x73, 0x70, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x12, 0x15, 0x0a,
-	0x06, 0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x65,
-	0x72, 0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x5f, 0x74, 0x69, 0x70, 0x73,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x72, 0x72, 0x54, 0x69, 0x70, 0x73, 0x12,
-	0x16, 0x0a, 0x06, 0x63, 0x68, 0x61, 0x72, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52,
-	0x06, 0x63, 0x68, 0x61, 0x72, 0x67, 0x65, 0x22, 0x20, 0x0a, 0x06, 0x52, 0x65, 0x71, 0x50, 0x61,
-	0x79, 0x12, 0x16, 0x0a, 0x06, 0x63, 0x68, 0x61, 0x72, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x06, 0x63, 0x68, 0x61, 0x72, 0x67, 0x65, 0x22, 0x3b, 0x0a, 0x07, 0x52, 0x65, 0x73,
+	0x72, 0x74, 0x52, 0x05, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x22, 0x26, 0x0a, 0x0b, 0x52, 0x65, 0x71,
+	0x42, 0x69, 0x6c, 0x6c, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x17, 0x0a, 0x07, 0x62, 0x69, 0x6c, 0x6c,
+	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x62, 0x69, 0x6c, 0x6c, 0x49,
+	0x64, 0x22, 0x64, 0x0a, 0x0c, 0x52, 0x65, 0x73, 0x70, 0x42, 0x69, 0x6c, 0x6c, 0x49, 0x6e, 0x66,
+	0x6f, 0x12, 0x15, 0x0a, 0x06, 0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x05, 0x65, 0x72, 0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x5f,
+	0x74, 0x69, 0x70, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x72, 0x72, 0x54,
+	0x69, 0x70, 0x73, 0x12, 0x22, 0x0a, 0x04, 0x62, 0x69, 0x6c, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x0e, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x42, 0x69, 0x6c,
+	0x6c, 0x52, 0x04, 0x62, 0x69, 0x6c, 0x6c, 0x22, 0x29, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x50, 0x61,
+	0x72, 0x6b, 0x12, 0x1e, 0x0a, 0x0b, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x61, 0x72, 0x50, 0x6f, 0x72, 0x74,
+	0x49, 0x64, 0x22, 0x3c, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x50, 0x61, 0x72, 0x6b, 0x12, 0x15,
+	0x0a, 0x06, 0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05,
+	0x65, 0x72, 0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x5f, 0x74, 0x69, 0x70,
+	0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x72, 0x72, 0x54, 0x69, 0x70, 0x73,
+	0x22, 0x2b, 0x0a, 0x09, 0x52, 0x65, 0x71, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x12, 0x1e, 0x0a,
+	0x0b, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x09, 0x63, 0x61, 0x72, 0x50, 0x6f, 0x72, 0x74, 0x49, 0x64, 0x22, 0x57, 0x0a,
+	0x0a, 0x52, 0x65, 0x73, 0x70, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x12, 0x15, 0x0a, 0x06, 0x65,
+	0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x65, 0x72, 0x72,
+	0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x5f, 0x74, 0x69, 0x70, 0x73, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x72, 0x72, 0x54, 0x69, 0x70, 0x73, 0x12, 0x17, 0x0a,
+	0x07, 0x62, 0x69, 0x6c, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06,
+	0x62, 0x69, 0x6c, 0x6c, 0x49, 0x64, 0x22, 0x21, 0x0a, 0x06, 0x52, 0x65, 0x71, 0x50, 0x61, 0x79,
+	0x12, 0x17, 0x0a, 0x07, 0x62, 0x69, 0x6c, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x06, 0x62, 0x69, 0x6c, 0x6c, 0x49, 0x64, 0x22, 0x3b, 0x0a, 0x07, 0x52, 0x65, 0x73,
 	0x70, 0x50, 0x61, 0x79, 0x12, 0x15, 0x0a, 0x06, 0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x65, 0x72, 0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65,
 	0x72, 0x72, 0x5f, 0x74, 0x69, 0x70, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65,
@@ -749,7 +878,7 @@ func file_client_proto_rawDescGZIP() []byte {
 	return file_client_proto_rawDescData
 }
 
-var file_client_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_client_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_client_proto_goTypes = []interface{}{
 	(*ReqUserInfo)(nil),  // 0: car_port.ReqUserInfo
 	(*RespUserInfo)(nil), // 1: car_port.RespUserInfo
@@ -757,23 +886,27 @@ var file_client_proto_goTypes = []interface{}{
 	(*RespMetaInfo)(nil), // 3: car_port.RespMetaInfo
 	(*ReqParkInfo)(nil),  // 4: car_port.ReqParkInfo
 	(*RespParkInfo)(nil), // 5: car_port.RespParkInfo
-	(*ReqPark)(nil),      // 6: car_port.ReqPark
-	(*RespPark)(nil),     // 7: car_port.RespPark
-	(*ReqPickUp)(nil),    // 8: car_port.ReqPickUp
-	(*RespPickUp)(nil),   // 9: car_port.RespPickUp
-	(*ReqPay)(nil),       // 10: car_port.ReqPay
-	(*RespPay)(nil),      // 11: car_port.RespPay
-	(*Park)(nil),         // 12: car_port.Park
-	(*CarPort)(nil),      // 13: car_port.CarPort
+	(*ReqBillInfo)(nil),  // 6: car_port.ReqBillInfo
+	(*RespBillInfo)(nil), // 7: car_port.RespBillInfo
+	(*ReqPark)(nil),      // 8: car_port.ReqPark
+	(*RespPark)(nil),     // 9: car_port.RespPark
+	(*ReqPickUp)(nil),    // 10: car_port.ReqPickUp
+	(*RespPickUp)(nil),   // 11: car_port.RespPickUp
+	(*ReqPay)(nil),       // 12: car_port.ReqPay
+	(*RespPay)(nil),      // 13: car_port.RespPay
+	(*Park)(nil),         // 14: car_port.Park
+	(*CarPort)(nil),      // 15: car_port.CarPort
+	(*Bill)(nil),         // 16: car_port.Bill
 }
 var file_client_proto_depIdxs = []int32{
-	12, // 0: car_port.RespMetaInfo.parks:type_name -> car_port.Park
-	13, // 1: car_port.RespParkInfo.ports:type_name -> car_port.CarPort
-	2,  // [2:2] is the sub-list for method output_type
-	2,  // [2:2] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	14, // 0: car_port.RespMetaInfo.parks:type_name -> car_port.Park
+	15, // 1: car_port.RespParkInfo.ports:type_name -> car_port.CarPort
+	16, // 2: car_port.RespBillInfo.bill:type_name -> car_port.Bill
+	3,  // [3:3] is the sub-list for method output_type
+	3,  // [3:3] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_client_proto_init() }
@@ -783,7 +916,7 @@ func file_client_proto_init() {
 	}
 	file_park_proto_init()
 	file_car_port_proto_init()
-	file_user_proto_init()
+	file_bill_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_client_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ReqUserInfo); i {
@@ -858,7 +991,7 @@ func file_client_proto_init() {
 			}
 		}
 		file_client_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReqPark); i {
+			switch v := v.(*ReqBillInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -870,7 +1003,7 @@ func file_client_proto_init() {
 			}
 		}
 		file_client_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RespPark); i {
+			switch v := v.(*RespBillInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -882,7 +1015,7 @@ func file_client_proto_init() {
 			}
 		}
 		file_client_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReqPickUp); i {
+			switch v := v.(*ReqPark); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -894,7 +1027,7 @@ func file_client_proto_init() {
 			}
 		}
 		file_client_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RespPickUp); i {
+			switch v := v.(*RespPark); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -906,7 +1039,7 @@ func file_client_proto_init() {
 			}
 		}
 		file_client_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReqPay); i {
+			switch v := v.(*ReqPickUp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -918,6 +1051,30 @@ func file_client_proto_init() {
 			}
 		}
 		file_client_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RespPickUp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_client_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReqPay); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_client_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RespPay); i {
 			case 0:
 				return &v.state
@@ -936,7 +1093,7 @@ func file_client_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_client_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

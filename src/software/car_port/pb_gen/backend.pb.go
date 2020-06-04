@@ -39,7 +39,7 @@ var file_backend_proto_rawDesc = []byte{
 	0x6f, 0x74, 0x6f, 0x1a, 0x0e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x1a, 0x0a, 0x70, 0x61, 0x72, 0x6b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a,
 	0x0c, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0a, 0x62,
-	0x69, 0x6c, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xe9, 0x0c, 0x0a, 0x0e, 0x43, 0x61,
+	0x69, 0x6c, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xbe, 0x0d, 0x0a, 0x0e, 0x43, 0x61,
 	0x72, 0x50, 0x6f, 0x72, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x5b, 0x0a, 0x0a,
 	0x41, 0x64, 0x64, 0x43, 0x61, 0x72, 0x50, 0x6f, 0x72, 0x74, 0x12, 0x17, 0x2e, 0x63, 0x61, 0x72,
 	0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x71, 0x41, 0x64, 0x64, 0x43, 0x61, 0x72, 0x50,
@@ -128,23 +128,28 @@ var file_backend_proto_rawDesc = []byte{
 	0x61, 0x72, 0x6b, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x16, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f,
 	0x72, 0x74, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x50, 0x61, 0x72, 0x6b, 0x49, 0x6e, 0x66, 0x6f, 0x22,
 	0x18, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x12, 0x12, 0x10, 0x2f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74,
-	0x2f, 0x50, 0x61, 0x72, 0x6b, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x46, 0x0a, 0x04, 0x50, 0x61, 0x72,
-	0x6b, 0x12, 0x11, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x71,
-	0x50, 0x61, 0x72, 0x6b, 0x1a, 0x12, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e,
-	0x52, 0x65, 0x73, 0x70, 0x50, 0x61, 0x72, 0x6b, 0x22, 0x17, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x11,
-	0x22, 0x0c, 0x2f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2f, 0x50, 0x61, 0x72, 0x6b, 0x3a, 0x01,
-	0x2a, 0x12, 0x4e, 0x0a, 0x06, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x12, 0x13, 0x2e, 0x63, 0x61,
-	0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x71, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70,
-	0x1a, 0x14, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x73, 0x70,
-	0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x22, 0x19, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x13, 0x22, 0x0e,
-	0x2f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2f, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x3a, 0x01,
-	0x2a, 0x12, 0x42, 0x0a, 0x03, 0x50, 0x61, 0x79, 0x12, 0x10, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70,
-	0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x71, 0x50, 0x61, 0x79, 0x1a, 0x11, 0x2e, 0x63, 0x61, 0x72,
-	0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x50, 0x61, 0x79, 0x22, 0x16, 0x82,
-	0xd3, 0xe4, 0x93, 0x02, 0x10, 0x22, 0x0b, 0x2f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2f, 0x50,
-	0x61, 0x79, 0x3a, 0x01, 0x2a, 0x42, 0x1a, 0x5a, 0x18, 0x73, 0x6f, 0x66, 0x74, 0x77, 0x61, 0x72,
-	0x65, 0x2f, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2f, 0x70, 0x62, 0x5f, 0x67, 0x65,
-	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2f, 0x50, 0x61, 0x72, 0x6b, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x53, 0x0a, 0x08, 0x42, 0x69, 0x6c,
+	0x6c, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x15, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74,
+	0x2e, 0x52, 0x65, 0x71, 0x42, 0x69, 0x6c, 0x6c, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x16, 0x2e, 0x63,
+	0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x42, 0x69, 0x6c, 0x6c,
+	0x49, 0x6e, 0x66, 0x6f, 0x22, 0x18, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x12, 0x12, 0x10, 0x2f, 0x63,
+	0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2f, 0x42, 0x69, 0x6c, 0x6c, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x46,
+	0x0a, 0x04, 0x50, 0x61, 0x72, 0x6b, 0x12, 0x11, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72,
+	0x74, 0x2e, 0x52, 0x65, 0x71, 0x50, 0x61, 0x72, 0x6b, 0x1a, 0x12, 0x2e, 0x63, 0x61, 0x72, 0x5f,
+	0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x50, 0x61, 0x72, 0x6b, 0x22, 0x17, 0x82,
+	0xd3, 0xe4, 0x93, 0x02, 0x11, 0x22, 0x0c, 0x2f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2f, 0x50,
+	0x61, 0x72, 0x6b, 0x3a, 0x01, 0x2a, 0x12, 0x4e, 0x0a, 0x06, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70,
+	0x12, 0x13, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x71, 0x50,
+	0x69, 0x63, 0x6b, 0x55, 0x70, 0x1a, 0x14, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74,
+	0x2e, 0x52, 0x65, 0x73, 0x70, 0x50, 0x69, 0x63, 0x6b, 0x55, 0x70, 0x22, 0x19, 0x82, 0xd3, 0xe4,
+	0x93, 0x02, 0x13, 0x22, 0x0e, 0x2f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2f, 0x50, 0x69, 0x63,
+	0x6b, 0x55, 0x70, 0x3a, 0x01, 0x2a, 0x12, 0x42, 0x0a, 0x03, 0x50, 0x61, 0x79, 0x12, 0x10, 0x2e,
+	0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x71, 0x50, 0x61, 0x79, 0x1a,
+	0x11, 0x2e, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x50,
+	0x61, 0x79, 0x22, 0x16, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x10, 0x22, 0x0b, 0x2f, 0x63, 0x6c, 0x69,
+	0x65, 0x6e, 0x74, 0x2f, 0x50, 0x61, 0x79, 0x3a, 0x01, 0x2a, 0x42, 0x1a, 0x5a, 0x18, 0x73, 0x6f,
+	0x66, 0x74, 0x77, 0x61, 0x72, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x5f, 0x70, 0x6f, 0x72, 0x74, 0x2f,
+	0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var file_backend_proto_goTypes = []interface{}{
@@ -164,28 +169,30 @@ var file_backend_proto_goTypes = []interface{}{
 	(*ReqUserInfo)(nil),       // 13: car_port.ReqUserInfo
 	(*ReqMetaInfo)(nil),       // 14: car_port.ReqMetaInfo
 	(*ReqParkInfo)(nil),       // 15: car_port.ReqParkInfo
-	(*ReqPark)(nil),           // 16: car_port.ReqPark
-	(*ReqPickUp)(nil),         // 17: car_port.ReqPickUp
-	(*ReqPay)(nil),            // 18: car_port.ReqPay
-	(*RespAddCarPort)(nil),    // 19: car_port.RespAddCarPort
-	(*RespUpdateCarPort)(nil), // 20: car_port.RespUpdateCarPort
-	(*RespGetCarPort)(nil),    // 21: car_port.RespGetCarPort
-	(*RespMGetCarPort)(nil),   // 22: car_port.RespMGetCarPort
-	(*RespUpdateUser)(nil),    // 23: car_port.RespUpdateUser
-	(*RespGetUser)(nil),       // 24: car_port.RespGetUser
-	(*RespMGetUser)(nil),      // 25: car_port.RespMGetUser
-	(*RespAddPark)(nil),       // 26: car_port.RespAddPark
-	(*RespUpdatePark)(nil),    // 27: car_port.RespUpdatePark
-	(*RespGetPark)(nil),       // 28: car_port.RespGetPark
-	(*RespMGetPark)(nil),      // 29: car_port.RespMGetPark
-	(*RespGetBill)(nil),       // 30: car_port.RespGetBill
-	(*RespMGetBill)(nil),      // 31: car_port.RespMGetBill
-	(*RespUserInfo)(nil),      // 32: car_port.RespUserInfo
-	(*RespMetaInfo)(nil),      // 33: car_port.RespMetaInfo
-	(*RespParkInfo)(nil),      // 34: car_port.RespParkInfo
-	(*RespPark)(nil),          // 35: car_port.RespPark
-	(*RespPickUp)(nil),        // 36: car_port.RespPickUp
-	(*RespPay)(nil),           // 37: car_port.RespPay
+	(*ReqBillInfo)(nil),       // 16: car_port.ReqBillInfo
+	(*ReqPark)(nil),           // 17: car_port.ReqPark
+	(*ReqPickUp)(nil),         // 18: car_port.ReqPickUp
+	(*ReqPay)(nil),            // 19: car_port.ReqPay
+	(*RespAddCarPort)(nil),    // 20: car_port.RespAddCarPort
+	(*RespUpdateCarPort)(nil), // 21: car_port.RespUpdateCarPort
+	(*RespGetCarPort)(nil),    // 22: car_port.RespGetCarPort
+	(*RespMGetCarPort)(nil),   // 23: car_port.RespMGetCarPort
+	(*RespUpdateUser)(nil),    // 24: car_port.RespUpdateUser
+	(*RespGetUser)(nil),       // 25: car_port.RespGetUser
+	(*RespMGetUser)(nil),      // 26: car_port.RespMGetUser
+	(*RespAddPark)(nil),       // 27: car_port.RespAddPark
+	(*RespUpdatePark)(nil),    // 28: car_port.RespUpdatePark
+	(*RespGetPark)(nil),       // 29: car_port.RespGetPark
+	(*RespMGetPark)(nil),      // 30: car_port.RespMGetPark
+	(*RespGetBill)(nil),       // 31: car_port.RespGetBill
+	(*RespMGetBill)(nil),      // 32: car_port.RespMGetBill
+	(*RespUserInfo)(nil),      // 33: car_port.RespUserInfo
+	(*RespMetaInfo)(nil),      // 34: car_port.RespMetaInfo
+	(*RespParkInfo)(nil),      // 35: car_port.RespParkInfo
+	(*RespBillInfo)(nil),      // 36: car_port.RespBillInfo
+	(*RespPark)(nil),          // 37: car_port.RespPark
+	(*RespPickUp)(nil),        // 38: car_port.RespPickUp
+	(*RespPay)(nil),           // 39: car_port.RespPay
 }
 var file_backend_proto_depIdxs = []int32{
 	0,  // 0: car_port.CarPortService.AddCarPort:input_type -> car_port.ReqAddCarPort
@@ -204,30 +211,32 @@ var file_backend_proto_depIdxs = []int32{
 	13, // 13: car_port.CarPortService.UserInfo:input_type -> car_port.ReqUserInfo
 	14, // 14: car_port.CarPortService.MetaInfo:input_type -> car_port.ReqMetaInfo
 	15, // 15: car_port.CarPortService.ParkInfo:input_type -> car_port.ReqParkInfo
-	16, // 16: car_port.CarPortService.Park:input_type -> car_port.ReqPark
-	17, // 17: car_port.CarPortService.PickUp:input_type -> car_port.ReqPickUp
-	18, // 18: car_port.CarPortService.Pay:input_type -> car_port.ReqPay
-	19, // 19: car_port.CarPortService.AddCarPort:output_type -> car_port.RespAddCarPort
-	20, // 20: car_port.CarPortService.UpdateCarPort:output_type -> car_port.RespUpdateCarPort
-	21, // 21: car_port.CarPortService.GetCarPort:output_type -> car_port.RespGetCarPort
-	22, // 22: car_port.CarPortService.MGetCarPort:output_type -> car_port.RespMGetCarPort
-	23, // 23: car_port.CarPortService.UpdateUser:output_type -> car_port.RespUpdateUser
-	24, // 24: car_port.CarPortService.GetUser:output_type -> car_port.RespGetUser
-	25, // 25: car_port.CarPortService.MGetUser:output_type -> car_port.RespMGetUser
-	26, // 26: car_port.CarPortService.AddPark:output_type -> car_port.RespAddPark
-	27, // 27: car_port.CarPortService.UpdatePark:output_type -> car_port.RespUpdatePark
-	28, // 28: car_port.CarPortService.GetPark:output_type -> car_port.RespGetPark
-	29, // 29: car_port.CarPortService.MGetPark:output_type -> car_port.RespMGetPark
-	30, // 30: car_port.CarPortService.GetBill:output_type -> car_port.RespGetBill
-	31, // 31: car_port.CarPortService.MGetBill:output_type -> car_port.RespMGetBill
-	32, // 32: car_port.CarPortService.UserInfo:output_type -> car_port.RespUserInfo
-	33, // 33: car_port.CarPortService.MetaInfo:output_type -> car_port.RespMetaInfo
-	34, // 34: car_port.CarPortService.ParkInfo:output_type -> car_port.RespParkInfo
-	35, // 35: car_port.CarPortService.Park:output_type -> car_port.RespPark
-	36, // 36: car_port.CarPortService.PickUp:output_type -> car_port.RespPickUp
-	37, // 37: car_port.CarPortService.Pay:output_type -> car_port.RespPay
-	19, // [19:38] is the sub-list for method output_type
-	0,  // [0:19] is the sub-list for method input_type
+	16, // 16: car_port.CarPortService.BillInfo:input_type -> car_port.ReqBillInfo
+	17, // 17: car_port.CarPortService.Park:input_type -> car_port.ReqPark
+	18, // 18: car_port.CarPortService.PickUp:input_type -> car_port.ReqPickUp
+	19, // 19: car_port.CarPortService.Pay:input_type -> car_port.ReqPay
+	20, // 20: car_port.CarPortService.AddCarPort:output_type -> car_port.RespAddCarPort
+	21, // 21: car_port.CarPortService.UpdateCarPort:output_type -> car_port.RespUpdateCarPort
+	22, // 22: car_port.CarPortService.GetCarPort:output_type -> car_port.RespGetCarPort
+	23, // 23: car_port.CarPortService.MGetCarPort:output_type -> car_port.RespMGetCarPort
+	24, // 24: car_port.CarPortService.UpdateUser:output_type -> car_port.RespUpdateUser
+	25, // 25: car_port.CarPortService.GetUser:output_type -> car_port.RespGetUser
+	26, // 26: car_port.CarPortService.MGetUser:output_type -> car_port.RespMGetUser
+	27, // 27: car_port.CarPortService.AddPark:output_type -> car_port.RespAddPark
+	28, // 28: car_port.CarPortService.UpdatePark:output_type -> car_port.RespUpdatePark
+	29, // 29: car_port.CarPortService.GetPark:output_type -> car_port.RespGetPark
+	30, // 30: car_port.CarPortService.MGetPark:output_type -> car_port.RespMGetPark
+	31, // 31: car_port.CarPortService.GetBill:output_type -> car_port.RespGetBill
+	32, // 32: car_port.CarPortService.MGetBill:output_type -> car_port.RespMGetBill
+	33, // 33: car_port.CarPortService.UserInfo:output_type -> car_port.RespUserInfo
+	34, // 34: car_port.CarPortService.MetaInfo:output_type -> car_port.RespMetaInfo
+	35, // 35: car_port.CarPortService.ParkInfo:output_type -> car_port.RespParkInfo
+	36, // 36: car_port.CarPortService.BillInfo:output_type -> car_port.RespBillInfo
+	37, // 37: car_port.CarPortService.Park:output_type -> car_port.RespPark
+	38, // 38: car_port.CarPortService.PickUp:output_type -> car_port.RespPickUp
+	39, // 39: car_port.CarPortService.Pay:output_type -> car_port.RespPay
+	20, // [20:40] is the sub-list for method output_type
+	0,  // [0:20] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -291,6 +300,7 @@ type CarPortServiceClient interface {
 	UserInfo(ctx context.Context, in *ReqUserInfo, opts ...grpc.CallOption) (*RespUserInfo, error)
 	MetaInfo(ctx context.Context, in *ReqMetaInfo, opts ...grpc.CallOption) (*RespMetaInfo, error)
 	ParkInfo(ctx context.Context, in *ReqParkInfo, opts ...grpc.CallOption) (*RespParkInfo, error)
+	BillInfo(ctx context.Context, in *ReqBillInfo, opts ...grpc.CallOption) (*RespBillInfo, error)
 	Park(ctx context.Context, in *ReqPark, opts ...grpc.CallOption) (*RespPark, error)
 	PickUp(ctx context.Context, in *ReqPickUp, opts ...grpc.CallOption) (*RespPickUp, error)
 	Pay(ctx context.Context, in *ReqPay, opts ...grpc.CallOption) (*RespPay, error)
@@ -448,6 +458,15 @@ func (c *carPortServiceClient) ParkInfo(ctx context.Context, in *ReqParkInfo, op
 	return out, nil
 }
 
+func (c *carPortServiceClient) BillInfo(ctx context.Context, in *ReqBillInfo, opts ...grpc.CallOption) (*RespBillInfo, error) {
+	out := new(RespBillInfo)
+	err := c.cc.Invoke(ctx, "/car_port.CarPortService/BillInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *carPortServiceClient) Park(ctx context.Context, in *ReqPark, opts ...grpc.CallOption) (*RespPark, error) {
 	out := new(RespPark)
 	err := c.cc.Invoke(ctx, "/car_port.CarPortService/Park", in, out, opts...)
@@ -494,6 +513,7 @@ type CarPortServiceServer interface {
 	UserInfo(context.Context, *ReqUserInfo) (*RespUserInfo, error)
 	MetaInfo(context.Context, *ReqMetaInfo) (*RespMetaInfo, error)
 	ParkInfo(context.Context, *ReqParkInfo) (*RespParkInfo, error)
+	BillInfo(context.Context, *ReqBillInfo) (*RespBillInfo, error)
 	Park(context.Context, *ReqPark) (*RespPark, error)
 	PickUp(context.Context, *ReqPickUp) (*RespPickUp, error)
 	Pay(context.Context, *ReqPay) (*RespPay, error)
@@ -550,6 +570,9 @@ func (*UnimplementedCarPortServiceServer) MetaInfo(context.Context, *ReqMetaInfo
 }
 func (*UnimplementedCarPortServiceServer) ParkInfo(context.Context, *ReqParkInfo) (*RespParkInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ParkInfo not implemented")
+}
+func (*UnimplementedCarPortServiceServer) BillInfo(context.Context, *ReqBillInfo) (*RespBillInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BillInfo not implemented")
 }
 func (*UnimplementedCarPortServiceServer) Park(context.Context, *ReqPark) (*RespPark, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Park not implemented")
@@ -853,6 +876,24 @@ func _CarPortService_ParkInfo_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CarPortService_BillInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqBillInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarPortServiceServer).BillInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/car_port.CarPortService/BillInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarPortServiceServer).BillInfo(ctx, req.(*ReqBillInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _CarPortService_Park_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReqPark)
 	if err := dec(in); err != nil {
@@ -974,6 +1015,10 @@ var _CarPortService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ParkInfo",
 			Handler:    _CarPortService_ParkInfo_Handler,
+		},
+		{
+			MethodName: "BillInfo",
+			Handler:    _CarPortService_BillInfo_Handler,
 		},
 		{
 			MethodName: "Park",
