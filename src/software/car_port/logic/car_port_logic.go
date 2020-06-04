@@ -35,7 +35,7 @@ func (logic CarPortLogic) CreateCarPort(port *pb_gen.CarPort) common.BgErr {
 	}
 	err = model.CreateCarPort(db, carPort)
 	if err != nil {
-		return common.DbErr
+		return common.CustomErr(common.DbErr, err)
 	}
 	return common.Success
 }
