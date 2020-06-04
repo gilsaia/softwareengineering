@@ -94,7 +94,7 @@ func (logic AccountLogic) Login(cellphone string, password string) (string, comm
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
-		return "", common.UserErr
+		return "", common.PasswordErr
 	}
 	token, err := common.GetToken(user.Id, user.Permission)
 	if err != nil {
