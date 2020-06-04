@@ -5,6 +5,7 @@ import (
 	"software/car_port/model"
 	"software/car_port/pb_gen"
 	"software/common"
+	"time"
 )
 
 type CarPortLogic struct {
@@ -32,6 +33,7 @@ func (logic CarPortLogic) CreateCarPort(port *pb_gen.CarPort) common.BgErr {
 		Latitude:  port.Latitude,
 		Longitude: port.Longitude,
 		Park:      port.Park,
+		LastUsed:  time.Now(),
 	}
 	err = model.CreateCarPort(db, carPort)
 	if err != nil {
