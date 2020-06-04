@@ -47,7 +47,7 @@ func (logic UserLogic) UpdateUser(user *pb_gen.User, password string) common.BgE
 	return common.Success
 }
 
-func (logic UserLogic) GetUser(userId int64) (*pb_gen.User, common.BgErr) {
+func (logic UserLogic) GetUser(userId int64, cellphone string) (*pb_gen.User, common.BgErr) {
 	if userId < 0 {
 		return nil, common.ParamErr
 	}
@@ -55,7 +55,12 @@ func (logic UserLogic) GetUser(userId int64) (*pb_gen.User, common.BgErr) {
 	if err != nil {
 		return nil, common.CustomErr(common.DbErr, err)
 	}
-	user, err := model.GetUser(db, userId)
+	user := model.User{}
+	if userId != 0 {
+		user, err = model.GetUser(db, userId)
+	} else {
+		user, err = model.GetUserByCellphone(db, cellphone)
+	}
 	if err != nil {
 		return nil, common.CustomErr(common.DbErr, err)
 	}
