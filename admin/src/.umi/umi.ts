@@ -4,8 +4,8 @@ import '@@/core/devScripts';
 import '../global.jsx';
 import { plugin } from './core/plugin';
 import { createHistory } from './core/history';
-import { ApplyPluginsType } from '/Users/fancy/Desktop/project/node_modules/@umijs/runtime';
-import { renderClient } from '/Users/fancy/Desktop/project/node_modules/@umijs/renderer-react/dist/index.js';
+import { ApplyPluginsType } from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/@umijs/runtime';
+import { renderClient } from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/@umijs/renderer-react/dist/index.js';
 
 
 require('../global.less');
@@ -13,7 +13,7 @@ require('./plugin-locale/locale')._onCreate();
 
 (() => {
   // Runtime block add component
-  window.GUmiUIFlag = require('/Users/fancy/Desktop/project/node_modules/@umijs/plugin-ui-blocks/lib/sdk/flagBabelPlugin/GUmiUIFlag.js').default;
+  window.GUmiUIFlag = require('D:/learn/softwareproject/softwareengineering/admin/node_modules/@umijs/plugin-ui-blocks/lib/sdk/flagBabelPlugin/GUmiUIFlag.js').default;
 
   // Enable/Disable block add edit mode
   window.addEventListener('message', (event) => {
@@ -75,9 +75,9 @@ export default clientRender();
         if (isIE) return;
 
         // Umi UI Bubble
-        require('/Users/fancy/Desktop/project/node_modules/@umijs/preset-ui/lib/bubble').default({
+        require('D:/learn/softwareproject/softwareengineering/admin/node_modules/@umijs/preset-ui/lib/bubble').default({
           port: 3000,
-          path: '/Users/fancy/Desktop/project',
+          path: 'D:/learn/softwareproject/softwareengineering/admin',
           currentProject: '',
           isBigfish: undefined,
         });

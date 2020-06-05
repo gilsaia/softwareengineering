@@ -3,15 +3,15 @@ import {
   createIntl,
   IntlShape,
   MessageDescriptor,
-} from '/Users/fancy/Desktop/project/node_modules/react-intl';
+} from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/react-intl';
 import { ApplyPluginsType } from 'umi';
 import { event, LANG_CHANGE_EVENT } from './locale';
 // @ts-ignore
-import warning from '/Users/fancy/Desktop/project/node_modules/warning/warning.js';
+import warning from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/warning/warning.js';
 
 import { plugin } from '../core/umiExports';
 
-export * from '/Users/fancy/Desktop/project/node_modules/react-intl';
+export * from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/react-intl';
 
 let g_intl: IntlShape;
 
@@ -20,7 +20,7 @@ const useLocalStorage = true;
 export const localeInfo: {[key: string]: any} = {
   'en-US': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/fancy/Desktop/project/src/locales/en-US.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('D:/learn/softwareproject/softwareengineering/admin/src/locales/en-US.js')),
     },
     locale: 'en-US',
     antd: {
@@ -30,7 +30,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'pt-BR': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/fancy/Desktop/project/src/locales/pt-BR.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('D:/learn/softwareproject/softwareengineering/admin/src/locales/pt-BR.js')),
     },
     locale: 'pt-BR',
     antd: {
@@ -40,7 +40,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'zh-CN': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/fancy/Desktop/project/src/locales/zh-CN.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('D:/learn/softwareproject/softwareengineering/admin/src/locales/zh-CN.js')),
     },
     locale: 'zh-CN',
     antd: {
@@ -50,7 +50,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'zh-TW': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/fancy/Desktop/project/src/locales/zh-TW.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('D:/learn/softwareproject/softwareengineering/admin/src/locales/zh-TW.js')),
     },
     locale: 'zh-TW',
     antd: {

@@ -6,10 +6,10 @@ import { EffectsCommandMap, SubscriptionAPI } from 'dva';
 import { match } from 'react-router-dom';
 import { Location, LocationState, History } from 'history';
 
-export * from '/Users/fancy/Desktop/project/src/models/global';
-export * from '/Users/fancy/Desktop/project/src/models/login';
-export * from '/Users/fancy/Desktop/project/src/models/setting';
-export * from '/Users/fancy/Desktop/project/src/models/user';
+export * from 'D:/learn/softwareproject/softwareengineering/admin/src/models/global';
+export * from 'D:/learn/softwareproject/softwareengineering/admin/src/models/login';
+export * from 'D:/learn/softwareproject/softwareengineering/admin/src/models/setting';
+export * from 'D:/learn/softwareproject/softwareengineering/admin/src/models/user';
 
 export interface Action<T = any> {
   type: T

@@ -1,6 +1,6 @@
 // @ts-nocheck
 /**
- * Base on https://github.com/umijs//Users/fancy/Desktop/project/node_modules/umi-request
+ * Base on https://github.com/umijs/D:/learn/softwareproject/softwareengineering/admin/node_modules/umi-request
  */
 import {
   extend,
@@ -13,14 +13,14 @@ import {
   RequestResponse,
   RequestInterceptor,
   ResponseInterceptor,
-} from '/Users/fancy/Desktop/project/node_modules/umi-request';
+} from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/umi-request';
 // @ts-ignore
 
 import { ApplyPluginsType } from 'umi';
 import { history, plugin } from '../core/umiExports';
             
 import { message, notification } from 'antd';
-import useUmiRequest from '/Users/fancy/Desktop/project/node_modules/@umijs/use-request';
+import useUmiRequest from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/@umijs/use-request';
 import {
   BaseOptions,
   BasePaginatedOptions,
@@ -36,7 +36,7 @@ import {
   PaginatedOptionsWithFormat,
   PaginatedParams,
   PaginatedResult,
-} from '/Users/fancy/Desktop/project/node_modules/@umijs/use-request/lib/types';
+} from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/@umijs/use-request/lib/types';
 
 type ResultWithData<T = any> = { data: T; [key: string]: any };
 

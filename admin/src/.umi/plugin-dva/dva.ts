@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { ApplyPluginsType } from 'umi';
 import dva from 'dva';
 // @ts-ignore
-import createLoading from '/Users/fancy/Desktop/project/node_modules/dva-loading/dist/index.esm.js';
+import createLoading from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/dva-loading/dist/index.esm.js';
 import { plugin, history } from '../core/umiExports';
 
 let app:any = null;
@@ -28,10 +28,10 @@ export function _onCreate(options = {}) {
   (runtimeDva.plugins || []).forEach((plugin:any) => {
     app.use(plugin);
   });
-  app.model({ namespace: 'global', ...(require('/Users/fancy/Desktop/project/src/models/global.js').default) });
-app.model({ namespace: 'login', ...(require('/Users/fancy/Desktop/project/src/models/login.js').default) });
-app.model({ namespace: 'setting', ...(require('/Users/fancy/Desktop/project/src/models/setting.js').default) });
-app.model({ namespace: 'user', ...(require('/Users/fancy/Desktop/project/src/models/user.js').default) });
+  app.model({ namespace: 'global', ...(require('D:/learn/softwareproject/softwareengineering/admin/src/models/global.js').default) });
+app.model({ namespace: 'login', ...(require('D:/learn/softwareproject/softwareengineering/admin/src/models/login.js').default) });
+app.model({ namespace: 'setting', ...(require('D:/learn/softwareproject/softwareengineering/admin/src/models/setting.js').default) });
+app.model({ namespace: 'user', ...(require('D:/learn/softwareproject/softwareengineering/admin/src/models/user.js').default) });
   return app;
 }
 

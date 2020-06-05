@@ -1,3 +1,3 @@
 // @ts-nocheck
 // @ts-ignore
-export { Helmet } from '/Users/fancy/Desktop/project/node_modules/react-helmet';
+export { Helmet } from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/react-helmet';

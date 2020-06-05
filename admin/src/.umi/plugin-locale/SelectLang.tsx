@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { GlobalOutlined } from '/Users/fancy/Desktop/project/node_modules/@ant-design/icons/lib/index.js';
+import { GlobalOutlined } from 'D:/learn/softwareproject/softwareengineering/admin/node_modules/@ant-design/icons/lib/index.js';
 import { Menu, Dropdown } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import { DropDownProps } from 'antd/es/dropdown';
