@@ -10,7 +10,7 @@ import (
 var DB *gorm.DB
 
 func init() {
-	connStr := fmt.Sprintf("%s:%s@tcp(mysql)/%s?charset=utf8&parseTime=True&loc=Local", common.DbRoot, common.DbPassword, common.DbName)
+	connStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local", common.DbRoot, common.DbPassword, common.DbHost, common.DbName)
 	db, err := gorm.Open("mysql", connStr)
 	if err != nil {
 		return
@@ -23,7 +23,7 @@ func NewDbConnection() (*gorm.DB, error) {
 	if DB != nil {
 		return DB, nil
 	}
-	connStr := fmt.Sprintf("%s:%s@tcp(mysql)/%s?charset=utf8&parseTime=True&loc=Local", common.DbRoot, common.DbPassword, common.DbName)
+	connStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local", common.DbRoot, common.DbPassword, common.DbHost, common.DbName)
 	db, err := gorm.Open("mysql", connStr)
 	if err != nil {
 		return nil, err

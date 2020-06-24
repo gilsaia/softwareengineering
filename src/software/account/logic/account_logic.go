@@ -56,7 +56,7 @@ func (logic AccountLogic) Verify(cellphone string) common.BgErr {
 	return common.Success
 }
 
-func (logic AccountLogic) Register(cellphone string, password string, nickname string, bindcode string) common.BgErr {
+func (logic AccountLogic) Register(cellphone string, password string, nickname string, bindCode string) common.BgErr {
 	db, err := model.NewDbConnection()
 	if err != nil {
 		return common.CustomErr(common.DbErr, err)
@@ -65,7 +65,7 @@ func (logic AccountLogic) Register(cellphone string, password string, nickname s
 	if err != nil {
 		return common.CustomErr(common.DbErr, err)
 	}
-	if user.BindCode != bindcode {
+	if user.BindCode != bindCode {
 		return common.BindErr
 	}
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
