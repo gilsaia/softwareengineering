@@ -37,7 +37,7 @@ func TestBillLogic_GetBill(t *testing.T) {
 			Status:   2,
 		}, common.Success},
 		{-1, nil, common.ParamErr},
-		{10, nil, common.DbErr},
+		{100, nil, common.DbErr},
 	}
 	for _, value := range loginTests {
 		bill, err := billLogic.GetBill(value.billId)
@@ -109,7 +109,7 @@ func TestCarPortLogic_UpdateCarPort(t *testing.T) {
 	}{
 		{&pb_gen.CarPort{
 			Id:        1,
-			State:     3,
+			State:     1,
 			Longitude: 0,
 			Latitude:  0,
 			Park:      0,
@@ -159,10 +159,10 @@ func TestCarPortLogic_GetCarPort(t *testing.T) {
 	}{
 		{1, &pb_gen.CarPort{
 			Id:        1,
-			State:     1,
+			State:     3,
 			Longitude: 0,
 			Latitude:  0,
-			Park:      0,
+			Park:      1,
 		}, common.Success},
 		{-1, nil, common.ParamErr},
 		{2, nil, common.DbErr},
@@ -394,7 +394,7 @@ func TestClientLogic_BillInfo(t *testing.T) {
 			Status:   2,
 		}, common.Success},
 		{-1, nil, common.DbErr},
-		{10, nil, common.DbErr},
+		{100, nil, common.DbErr},
 	}
 	for _, value := range loginTests {
 		bill, err := clientLogic.BillInfo(value.billId)
