@@ -8,7 +8,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.14.5
 	github.com/jinzhu/gorm v1.9.12
-	golang.org/x/crypto v0.0.0-20191205180655-e7c4368fe9dd
+	golang.org/x/crypto v0.1.0
 	google.golang.org/genproto v0.0.0-20200521103424-e9a78aa275b7
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.23.0
